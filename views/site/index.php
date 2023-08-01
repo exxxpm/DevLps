@@ -33,8 +33,7 @@ use yii\helpers\Html;
                 <div class="container-fluid">
                     <?= Html::beginForm(['index'], 'get', ['enctype' => 'multipart/form-data', 'id' => 'view-object', 'class' => 'sObject__head-row row']) ?>
                     <div class="col-auto ms-auto ms-md-0 me-auto me-md-0">
-                        <div class="custom-select-wrap custom-select-wrap--first-type"
-                             data-number="<?= (isset($total_count) ? $total_count : count($objects)); ?>">
+                        <div class="custom-select-wrap custom-select-wrap--first-type"  data-number="<?= (isset($total_count) ? $total_count : count($objects)); ?>">
                             <?= Html::dropDownList('status', Yii::$app->request->get('status'), ArrayHelper::map($status, 'id', 'name'), ['class' => 'basic-select basic-select--js']) ?>
                             <div class="custom-select-wrap__label">1</div>
                         </div>

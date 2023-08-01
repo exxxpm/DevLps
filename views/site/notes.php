@@ -5,7 +5,7 @@ use \yii\widgets\ActiveForm;
 
 <div class="main-center-wrap">
     <main>
-        <?= $this->render('_header', compact('object')); ?>
+        <?= $this->render('_header', compact('object', 'id')); ?>
         <!-- start sMainInfo-->
         <div class="sMainInfo section" id="sMainInfo">
             <div class="container-fluid">

@@ -2,9 +2,7 @@
 
 namespace app\controllers;
 
-use app\models\FileLink;
 use app\models\forms\AddFile;
-use yii\web\UploadedFile;
 use app\models\forms\AddNote;
 use app\models\NotesLink;
 use app\models\Objects;
@@ -12,6 +10,7 @@ use app\models\Status;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
+use yii\web\UploadedFile;
 
 class SiteController extends Controller
 {
@@ -126,13 +125,35 @@ class SiteController extends Controller
         $add_form = new AddNote($id, "object");
         $add_file = new AddFile($id, "notes");
 
-        if($add_form->load(Yii::$app->request->post()) && $add_file->load(Yii::$app->request->post())){
+        if ($add_form->load(Yii::$app->request->post()) && $add_file->load(Yii::$app->request->post())) {
             $add_file->file = UploadedFile::getInstances($add_file, 'file');
             $add_file->add($add_form->add());
             return $this->refresh();
         }
 
         return $this->render('notes', compact('object', 'id', 'notes', 'add_form', 'add_file'));
+    }
+
+    public function actionEdit()
+    {
+        $this->view->title = 'Редактирование объекта';
+        $this->view->registerCsrfMetaTags();
+        $this->view->registerMetaTag(['charset' => Yii::$app->charset], 'charset');
+        $this->view->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width,initial-scale=1.0,  shrink-to-fit=no']);
+        $this->view->registerMetaTag(['name' => 'description', 'content' => 'О чем страница']);
+        $this->view->registerMetaTag(['name' => 'keywords', 'content' => '']);
+        $this->layout = 'edit';
+
+        $id = Yii::$app->request->get('id');
+        $object = Objects::findOne($id);
+        $status = Status::find()->where(['!=', 'id', 1])->all();
+
+        if ($object->load(Yii::$app->request->post())) {
+            $object->edit_object();
+            return $this->refresh();
+        }
+
+        return $this->render('edit', compact('object', 'status',  'id'));
     }
 
 }

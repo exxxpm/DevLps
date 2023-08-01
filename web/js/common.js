@@ -482,13 +482,13 @@ function eventHandler() {
 		let changedElem = state.element.closest('.select-status').querySelector('.select2-selection--single');
 
 		changedElem.classList.remove('select2-selection--planning', 'select2-selection--in-work', 'select2-selection--done', 'select2-selection--arhive');
-		if(state.id == 'В работе') {
+		if(state.id == 'В работе' || state.id == '2') {
 			changedElem.classList.add('select2-selection--in-work')
-		} else if (state.id == 'Планирование') {
+		} else if (state.id == 'Планирование' || state.id == '3') {
 			changedElem.classList.add('select2-selection--planning')
-		} else if (state.id == 'Завершен') {
+		} else if (state.id == 'Завершен' || state.id == '4') {
 			changedElem.classList.add('select2-selection--done')
-		} else if (state.id == 'Архив') {
+		} else if (state.id == 'Архив' || state.id == '5') {
 			changedElem.classList.add('select2-selection--arhive')
 		}
 		return '<img src="' + state.element.dataset.img + '"/>' + state.text;

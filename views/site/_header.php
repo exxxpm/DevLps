@@ -17,7 +17,7 @@ use app\widgets\SwiperBreadcrumbs;
             </div>
             <div class="col-12 d-none d-md-block m-0 p-0 order-md-3"></div>
             <div class="page-head__col col-md-auto order-md-2 d-none d-md-block">
-                <a class="page-head__edit" href="#">Редактировать
+                <a class="page-head__edit" href="/web/site/edit/<?= $id ?>">Редактировать
                     <svg class="icon icon-edit ">
                         <use xlink:href="/web/img/svg/sprite.svg#edit"></use>
                     </svg>
