@@ -12,8 +12,8 @@
     <div class="note-block__content">
         <p><?= $note->note->message ?></p>
         <?
-            foreach ($note->file as $file){
-                ?><pre><?print_r($file->files)?></pre><?
+            foreach ($note->files as $file){
+                ?><pre><?print_r($file->file->name)?></pre><?
             };
         ?>
     </div>
