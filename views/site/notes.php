@@ -105,7 +105,7 @@ use \yii\widgets\ActiveForm;
                                         <div class="upload-field text-primary">
                                             <label>
                                                 <span class="upload-field__btn"> <svg class="icon icon-attach "> <use xlink:href="/web/img/svg/sprite.svg#attach"></use> </svg></span>
-                                                <?= $form->field($add_file, 'file')->fileInput(['class' => 'upload-field__input input-upload invisible'])->label(false); ?>
+                                                <?= $form->field($add_file, 'file[]')->fileInput(['class' => 'upload-field__input input-upload invisible', 'multiple' => true, 'accept' => 'image/*'])->label(false); ?>
                                                 <span class="upload-field__file-name"> Прикрепить файл</span>
                                             </label>
                                         </div>

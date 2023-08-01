@@ -12,8 +12,16 @@
     <div class="note-block__content">
         <p><?= $note->note->message ?></p>
         <?
-            foreach ($note->files as $file){
-                ?><pre><?print_r($file->file->name)?></pre><?
+            if (!empty($note->note->files)) {
+                foreach ($note->note->files as $file){
+                    ?>
+                        <div class="file-item">
+                            <svg class="icon icon-file-list "><use xlink:href="/web/img/svg/sprite.svg#file-list"></use></svg>
+                            <a class="file-item__name" href="/web/<?= $file->file->path ?>"><?= $file->file->name?></a>
+                            <div class="file-item__size"><?= ceil(filesize($file->file->path) / 1024 / 1024) . ' мб'?></div>
+                        </div>
+                    <?
+                }
             };
         ?>
     </div>

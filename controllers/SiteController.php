@@ -121,13 +121,13 @@ class SiteController extends Controller
 
         $id = Yii::$app->request->get('id');
         $object = Objects::findOne($id);
-        $notes = NotesLink::find()->where(['model_id' => $id, 'model' => 'object'])->all();
+        $notes = NotesLink::find()->where(['model_id' => $id, 'model' => 'object'])->orderBy(['id' => SORT_DESC])->all();
 
         $add_form = new AddNote($id, "object");
         $add_file = new AddFile($id, "notes");
 
         if($add_form->load(Yii::$app->request->post()) && $add_file->load(Yii::$app->request->post())){
-            $add_file->file = UploadedFile::getInstance($add_file, 'file');
+            $add_file->file = UploadedFile::getInstances($add_file, 'file');
             $add_file->add($add_form->add());
             return $this->refresh();
         }

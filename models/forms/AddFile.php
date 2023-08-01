@@ -20,21 +20,23 @@ class AddFile extends Model {
 
     public function rules() {
         return [
-            [['file'], 'file', 'skipOnEmpty' => false],
+            [['file'], 'file', 'skipOnEmpty' => false, 'maxFiles' => 10000],
         ];
     }
 
     public function add($model){
-        $files = new File();
-        $uploadPath = 'uploads/' . date('Y') . '/' . date('m');
-        $fullPath = $uploadPath . '/' . $this->file->baseName . '.' . $this->file->extension;
+        foreach ($this->file as $files_item) {
+            $files = new File();
+            $uploadPath = 'uploads/' . date('Y') . '/' . date('m');
+            $fullPath = $uploadPath . '/' . $files_item->baseName . '.' . $files_item->extension;
 
-        $files->name = $this->file->baseName.'.'.$this->file->extension;
-        $files->path = $fullPath;
+            $files->name = $files_item->baseName.'.'.$files_item->extension;
+            $files->path = $fullPath;
 
-        if($files->save()){
-            $this->add_files_link($model, $files);
-            $this->upload();
+            if($files->save()){
+                $this->add_files_link($model, $files);
+                $this->upload($files_item);
+            }
         }
     }
 
@@ -46,16 +48,16 @@ class AddFile extends Model {
         $link->save();
     }
 
-    public function upload() {
+    public function upload($files_item) {
         if ($this->validate()) {
             $uploadPath = 'uploads/' . date('Y') . '/' . date('m');
-            $fullPath = $uploadPath . '/' . $this->file->baseName . '.' . $this->file->extension;
+            $fullPath = $uploadPath . '/' . $files_item->baseName . '.' . $files_item->extension;
 
             if (!file_exists($uploadPath)) {
                 FileHelper::createDirectory($uploadPath, 0775, true);
             }
 
-            $this->file->saveAs($fullPath);
+            $files_item->saveAs($fullPath);
             return true;
         } else {
             return false;
