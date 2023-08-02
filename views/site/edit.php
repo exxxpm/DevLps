@@ -16,13 +16,13 @@ use yii\widgets\ActiveForm;
                     <div class="form-wrap__main-row row">
                         <div class="col-12">
                             <div class="custom-input-wrap form-group">
-                                <?= $form->field($object, 'name')->textInput(['class' => 'custom-input-wrap__input form-control', 'name' => 'text', 'type' => 'text', 'placeholder' => 'Введите название'])->label(false); ?>
+                                <?= $form->field($object, 'name')->textInput(['class' => 'custom-input-wrap__input form-control', 'placeholder' => 'Введите название'])->label(false); ?>
                                 <div class="custom-input-wrap__line"></div>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-wrap__input-wrap form-group">
-                                <?= $form->field($object, 'description')->textarea(['class' => 'form-wrap__input form-control', 'name' => 'textarea', 'placeholder' => 'Введите описание объекта'])->label(false); ?>
+                                <?= $form->field($object, 'description')->textarea(['class' => 'form-wrap__input form-control', 'placeholder' => 'Введите описание объекта'])->label(false); ?>
                             </div>
                             <!-- +e.input-wrap-->
                         </div>
@@ -90,13 +90,12 @@ use yii\widgets\ActiveForm;
                     </div>
                     <div class="col-12">
                         <div class="sCreateObject__item">
-                            <p>Дата создания</p><span><?= Yii::$app->formatter->asDate($object->edit_create, 'd.m.y H:i'); ?></span>
+                            <p>Дата создания</p><span><?= Yii::$app->formatter->asDate($object->edit_create, 'd.M.Y H:i'); ?></span>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="sCreateObject__item">
-                            <p>Последнее изменение</p><span><?= Yii::$app->formatter->asDate( $object->edit_update, 'd.m.y H:i'); ?></span>
-                            <?= $form->field($object, 'edit_update')->hiddenInput(['class' => 'hidden_edit-update'])->label(false); ?>
+                            <p>Последнее изменение</p><span><?= Yii::$app->formatter->asDate( $object->edit_update, 'd.M.Y H:i'); ?></span>
                         </div>
                     </div>
                     <div class="col-12">

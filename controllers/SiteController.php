@@ -148,7 +148,7 @@ class SiteController extends Controller
         $object = Objects::findOne($id);
 
         if ($object->load(Yii::$app->request->post())) {
-            if($object->edit()) {
+            if ($object->validate() && $object->edit()) {
                 return $this->refresh();
             }
         }
