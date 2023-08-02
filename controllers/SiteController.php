@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\forms\AddFile;
 use app\models\forms\AddNote;
+use app\models\Home;
 use app\models\NotesLink;
 use app\models\Objects;
 use app\models\Status;
@@ -61,7 +62,8 @@ class SiteController extends Controller
 
         $id = Yii::$app->request->get('id');
         $object = Objects::findOne($id);
-        return $this->render('object', compact('object', 'id'));
+        $homes = Home::find()->where(['object_id' => $id])->all();
+        return $this->render('object', compact('object', 'id', 'homes'));
     }
 
     public function actionInfo()
