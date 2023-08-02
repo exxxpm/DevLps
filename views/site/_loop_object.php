@@ -3,7 +3,7 @@
 <div class="sObject__col col-sm-6 col-lg-4 col-xxl-auto">
     <div class="sObject-card" style="--bgDefColor: <?= '#'.$object->status->color_bg ?>">
         <a class="h4" href="/web/site/object/<?= $object->id ?>"><?= $object->name ?></a>
-        <p><?= Yii::$app->formatter->asDate($object->date_create); ?> - <?= Yii::$app->formatter->asDate($object->date_finish); ?></p>
+        <p><?= Yii::$app->formatter->asDate($object->date_start); ?> - <?= Yii::$app->formatter->asDate($object->date_finish); ?></p>
         <div class="sObject-card__row row">
             <div class="col">
                 <div class="badge <?= $object->status->color ?>"> <img class="img-svg-js" src="/web/img/svg/<?= $object->status->img ?>" alt="" loading="lazy"/><?= $object->status->name ?></div>

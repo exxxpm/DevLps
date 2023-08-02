@@ -86,7 +86,7 @@ use app\widgets\SwiperBreadcrumbs;
                             <svg class="icon icon-calendar ">
                                 <use xlink:href="/web/img/svg/sprite.svg#calendar"></use>
                             </svg>
-                            <?= Yii::$app->formatter->asDate($object->date_create); ?>
+                            <?= Yii::$app->formatter->asDate($object->date_start); ?>
                             - <?= Yii::$app->formatter->asDate($object->date_finish); ?>
                         </div>
                     </div>

@@ -43,7 +43,7 @@ use yii\helpers\Html;
                             <div class="custom-select-wrap__label text-secondary">Сортировать по</div>
                             <?= Html::dropDownList('sort', Yii::$app->request->get('sort'), [
                                 'status_id' => 'статусу',
-                                'date_create' => 'дате создания',
+                                'date_start' => 'дате создания',
                                 'date_finish' => 'дате завершения',
                                 'name' => 'названию',
                             ], ['class' => 'basic-select basic-select--js']) ?>

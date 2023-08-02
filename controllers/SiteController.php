@@ -146,14 +146,14 @@ class SiteController extends Controller
 
         $id = Yii::$app->request->get('id');
         $object = Objects::findOne($id);
-        $status = Status::find()->where(['!=', 'id', 1])->all();
 
         if ($object->load(Yii::$app->request->post())) {
-            $object->edit_object();
-            return $this->refresh();
+            if($object->edit()) {
+                return $this->refresh();
+            }
         }
 
-        return $this->render('edit', compact('object', 'status',  'id'));
+        return $this->render('edit', compact('object',  'id'));
     }
 
 }

@@ -34,48 +34,48 @@ use yii\widgets\ActiveForm;
                     <div class="col-12">
                         <div class="sCreateObject__item">
                             <p>Статус проекта</p>
-                            <?php
-                                $options = [
-                                    ['label' => 'В работе', 'value' => '2', 'img' => '/web/img/svg/play.svg'],
-                                    ['label' => 'Планирование', 'value' => '3', 'img' => '/web/img/svg/done.svg'],
-                                    ['label' => 'Завершен', 'value' => '4', 'img' => '/web/img/svg/time.svg'],
-                                    ['label' => 'Архив', 'value' => '5', 'img' => '/web/img/svg/archive.svg'],
-                                ];
-                                $selectOptions = array_map(function ($item) {
-                                    return Html::tag('option', $item['label'], [
-                                        'value' => $item['value'],
-                                        'data-img' => $item['img'],
-                                    ]);
-                                }, $options);
-                            ?>
-
                             <div class="select-status">
-                                <?= Html::tag('select', implode("\n", $selectOptions), ['class' => 'custom-select--js']); ?>
-                            </div>
+                                <?
+                                    $options = [
+                                        ['label' => 'В работе', 'value' => '2', 'img' => '/web/img/svg/play.svg'],
+                                        ['label' => 'Планирование', 'value' => '3', 'img' => '/web/img/svg/done.svg'],
+                                        ['label' => 'Завершен', 'value' => '4', 'img' => '/web/img/svg/time.svg'],
+                                        ['label' => 'Архив', 'value' => '5', 'img' => '/web/img/svg/archive.svg'],
+                                    ];
 
+                                    $statusOptions = [];
+                                    foreach ($options as $option) {
+                                        $label = Html::encode($option['label']);
+                                        $imgSrc = Html::encode($option['img']);
+                                        $statusOptions[$option['value']] = $label;
+                                    }
+                                ?>
+
+                                <?= $form->field($object, 'status_id')->label(false)->dropDownList($statusOptions,['class' => 'custom-select--js', 'encode' => false, 'options' => array_reduce($options, function ($carry, $option) {$imgSrc = Html::encode($option['img']);$carry[$option['value']] = ['data-img' => $imgSrc];return $carry;}, []),])->label(false);?>
+                            </div>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="sCreateObject__item">
                             <p>Дата начала</p>
-                            <div class="sCreateObject__date dateSingle-js date-create">
+                            <div class="sCreateObject__date dateSingle-js">
                                 <svg class="icon icon-calendar ">
                                     <use xlink:href="/web/img/svg/sprite.svg#calendar"></use>
                                 </svg>
-                                <span>Указать дату начала</span>
-                                <?= $form->field($object, 'date_create')->hiddenInput(['class' => 'hidden_date-create'])->label(false); ?>
+                                <span class="date-create">Указать дату начала</span>
+                                <?= $form->field($object, 'date_start')->hiddenInput(['class' => 'hidden_date-create'])->label(false); ?>
                             </div>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="sCreateObject__item">
                             <p>Дата завершения</p>
-                            <div class="sCreateObject__date dateSingle-js date-finish">
+                            <div class="sCreateObject__date dateSingle-js">
                                 <svg class="icon icon-calendar ">
                                     <use xlink:href="/web/img/svg/sprite.svg#calendar"></use>
                                 </svg>
-                                <span>Указать дату завершения</span>
-                                <?= $form->field($object, 'date_create')->hiddenInput(['class' => 'hidden_date-finish'])->label(false); ?>
+                                <span class="date-finish">Указать дату завершения</span>
+                                <?= $form->field($object, 'date_finish')->hiddenInput(['class' => 'hidden_date-finish'])->label(false); ?>
                             </div>
                         </div>
                     </div>
@@ -90,12 +90,13 @@ use yii\widgets\ActiveForm;
                     </div>
                     <div class="col-12">
                         <div class="sCreateObject__item">
-                            <p>Дата создания</p><span><?= Yii::$app->formatter->asDate($object->date_create, 'd.m.y H:i'); ?></span>
+                            <p>Дата создания</p><span><?= Yii::$app->formatter->asDate($object->edit_create, 'd.m.y H:i'); ?></span>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="sCreateObject__item">
                             <p>Последнее изменение</p><span><?= Yii::$app->formatter->asDate( $object->edit_update, 'd.m.y H:i'); ?></span>
+                            <?= $form->field($object, 'edit_update')->hiddenInput(['class' => 'hidden_edit-update'])->label(false); ?>
                         </div>
                     </div>
                     <div class="col-12">
@@ -140,8 +141,8 @@ use yii\widgets\ActiveForm;
 $script = <<< JS
         $(document).ready(function() {
             $('.btn-accent').on('click', function (){
-                $('.hidden_date-create').val($('.date-create span').text());
-                $('.hidden_date-finish').val( $('.date-finish span').text());
+                $('.hidden_date-create').val($('.date-create').text());
+                $('.hidden_date-finish').val($('.date-finish').text());
             });
         });
     JS;

@@ -82,7 +82,7 @@
                             <table class="table">
                                 <tr>
                                     <td>Дата создания</td>
-                                    <td class="text-end"><?= Yii::$app->formatter->asDate($object->date_create); ?></td>
+                                    <td class="text-end"><?= Yii::$app->formatter->asDate($object->date_start); ?></td>
                                 </tr>
                                 <tr>
                                     <td>Дата окончания</td>
