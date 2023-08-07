@@ -124,6 +124,23 @@ class SiteController extends Controller{
         return $this->render('notes', compact('object', 'id', 'notes', 'add_form', 'add_file'));
     }
 
+    public function actionAdd(){
+        $this->view->title = 'Создание объекта';
+        $this->view->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width,initial-scale=1.0,  shrink-to-fit=no']);
+        $this->layout = 'edit';
+
+        $id = Yii::$app->request->get('id');
+        $object = new Objects();
+
+        if ($object->load(Yii::$app->request->post())) {
+            if ($object->validate() && $object->change_object()) {
+                return $this->refresh();
+            }
+        }
+
+        return $this->render('add', compact('object',  'id'));
+    }
+
     public function actionEdit(){
         $this->view->title = 'Редактирование объекта';
         $this->view->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width,initial-scale=1.0,  shrink-to-fit=no']);
@@ -133,7 +150,7 @@ class SiteController extends Controller{
         $object = Objects::findOne($id);
 
         if ($object->load(Yii::$app->request->post())) {
-            if ($object->validate() && $object->edit()) {
+            if ($object->validate() && $object->change_object()) {
                 return $this->refresh();
             }
         }

@@ -8,7 +8,7 @@ class Objects extends ActiveRecord{
         return $this->hasOne(Status::class, ['id' => 'status_id']);
     }
 
-    public function edit() {
+    public function change_object() {
         $months = ['Янв' => 'Jan', 'Фев' => 'Feb', 'Март' => 'Mar', 'Апр' => 'Apr','Май' => 'May', 'Июнь' => 'Jun', 'Июль' => 'Jul', 'Авг' => 'Aug','Сен' => 'Sep', 'Окт' => 'Oct', 'Ноя' => 'Nov', 'Дек' => 'Dec'];
 
         $start_date_transformed = strtr($this->date_start, $months);
@@ -18,8 +18,8 @@ class Objects extends ActiveRecord{
         $this->date_finish = (DateTime::createFromFormat('d M y', $finish_date_transformed) !== false) ? DateTime::createFromFormat('d M y', $finish_date_transformed)->getTimestamp() : false;
 
         $current_time = time();
-        $this->edit_create = $current_time;
-        $this->edit_update = $current_time;
+        $this->create = $current_time;
+        $this->last_update = $current_time;
 
         return $this->save();
     }

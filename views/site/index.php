@@ -65,7 +65,7 @@ use yii\helpers\Html;
                                         <use xlink:href="/web/img/svg/sprite.svg#plus"></use>
                                     </svg>
                                 </div>
-                                <a class="sObject-card__add" href="#">Добавить объект</a>
+                                <a class="sObject-card__add" href="/web/site/add">Добавить объект</a>
                             </div>
                         </div>
                     </div>
