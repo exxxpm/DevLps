@@ -11,10 +11,10 @@
             </label><a class="h3" href="/web/home/index/<?= $home->id ?>"><?= $home->name ?></a>
         </div>
     </td>
-    <td>3</td>
+    <td><?= $home->entrances ?></td>
     <td>-</td>
-    <td>130</td>
-    <td>268</td>
+    <td><?= $home->flats ?></td>
+    <td><?= $home->rooms ?></td>
     <td>1300 м²</td>
     <td>
         <div class="main-table__goals"><img src="/web/img/svg/fist.svg" alt="" loading="lazy" /><span>321</span>/433

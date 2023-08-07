@@ -75,7 +75,7 @@ class FlatController extends Controller{
         $entrance = Entrance::findOne($flat->entrance_id);
         $home = Home::findOne($flat->home_id);
         $object = Objects::findOne($flat->object_id);
-        $rooms = Room::find()->where(['home_id' => $flat->home_id, 'object_id' => $flat->object_id, 'entrance_id' => $flat->entrance_id, 'floor_id' => $flat->floor_id])->all();
+        $rooms = Room::find()->where(['home_id' => $flat->home_id, 'object_id' => $flat->object_id, 'entrance_id' => $flat->entrance_id, 'floor_id' => $flat->floor_id, 'flat_id' => $id])->all();
 
         return $this->render('index', compact('floor','entrance', 'home', 'object', 'flat', 'rooms', 'id'));
     }

@@ -9,7 +9,7 @@
                 <div class="badge <?= $object->status->color ?>"> <img class="img-svg-js" src="/web/img/svg/<?= $object->status->img ?>" alt="" loading="lazy"/><?= $object->status->name ?></div>
             </div>
             <div class="col-auto">
-                <a class="sObject-card__link" href="#">
+                <a class="sObject-card__link" href="/web/site/edit/<?= $object->id ?>">
                     <svg class="icon icon-edit ">
                         <use xlink:href="/web/img/svg/sprite.svg#edit"></use>
                     </svg>

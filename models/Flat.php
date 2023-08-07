@@ -4,6 +4,9 @@ use DateTime;
 use yii\db\ActiveRecord;
 
 class Flat extends ActiveRecord{
+    public function getRooms(){
+        return $this->hasMany(Room::class, ['flat_id' => 'id'])->count();
+    }
     public function add_flat($id, $floor) {
         $months = ['Янв' => 'Jan', 'Фев' => 'Feb', 'Март' => 'Mar', 'Апр' => 'Apr','Май' => 'May', 'Июнь' => 'Jun', 'Июль' => 'Jul', 'Авг' => 'Aug','Сен' => 'Sep', 'Окт' => 'Oct', 'Ноя' => 'Nov', 'Дек' => 'Dec'];
 

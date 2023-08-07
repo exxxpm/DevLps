@@ -4,6 +4,13 @@ use DateTime;
 use yii\db\ActiveRecord;
 
 class Floor extends ActiveRecord{
+    public function getFlats(){
+        return $this->hasMany(Flat::class, ['floor_id' => 'id'])->count();
+    }
+
+    public function getRooms(){
+        return $this->hasMany(Room::class, ['floor_id' => 'id'])->count();
+    }
     public function add_floor($id, $entrance) {
         $months = ['Янв' => 'Jan', 'Фев' => 'Feb', 'Март' => 'Mar', 'Апр' => 'Apr','Май' => 'May', 'Июнь' => 'Jun', 'Июль' => 'Jul', 'Авг' => 'Aug','Сен' => 'Sep', 'Окт' => 'Oct', 'Ноя' => 'Nov', 'Дек' => 'Dec'];
 

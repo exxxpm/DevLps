@@ -12,9 +12,9 @@
         </div>
     </td>
     <td>-</td>
-    <td>12</td>
-    <td>130</td>
-    <td>268</td>
+    <td><?= $entrance->floors ?></td>
+    <td><?= $entrance->flats ?></td>
+    <td><?= $entrance->rooms ?></td>
     <td>1300 м²</td>
     <td>
         <div class="main-table__goals"><img src="/web/img/svg/fist.svg" alt="" loading="lazy" /><span>321</span>/433

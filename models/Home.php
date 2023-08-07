@@ -1,10 +1,23 @@
 <?php
-
 namespace app\models;
+
 use DateTime;
 use yii\db\ActiveRecord;
 
 class Home extends ActiveRecord{
+
+    public function getEntrances(){
+        return $this->hasMany(Entrance::class, ['home_id' => 'id'])->count();
+    }
+
+    public function getFlats(){
+        return $this->hasMany(Flat::class, ['home_id' => 'id'])->count();
+    }
+
+    public function getRooms(){
+        return $this->hasMany(Room::class, ['home_id' => 'id'])->count();
+    }
+
     public function change_home($id) {
         $months = ['Янв' => 'Jan', 'Фев' => 'Feb', 'Март' => 'Mar', 'Апр' => 'Apr','Май' => 'May', 'Июнь' => 'Jun', 'Июль' => 'Jul', 'Авг' => 'Aug','Сен' => 'Sep', 'Окт' => 'Oct', 'Ноя' => 'Nov', 'Дек' => 'Dec'];
 
