@@ -90,12 +90,12 @@ use yii\widgets\ActiveForm;
                     </div>
                     <div class="col-12">
                         <div class="sCreateObject__item">
-                            <p>Дата создания</p><span><?= Yii::$app->formatter->asDate($object->edit_create, 'd.M.Y H:i'); ?></span>
+                            <p>Дата создания</p><span><?= Yii::$app->formatter->asDate($object->create, 'd.M.Y H:i'); ?></span>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="sCreateObject__item">
-                            <p>Последнее изменение</p><span><?= Yii::$app->formatter->asDate( $object->edit_update, 'd.M.Y H:i'); ?></span>
+                            <p>Последнее изменение</p><span><?= Yii::$app->formatter->asDate( $object->last_update, 'd.M.Y H:i'); ?></span>
                         </div>
                     </div>
                     <div class="col-12">

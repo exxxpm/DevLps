@@ -1,28 +1,41 @@
 <?php
-
 namespace app\controllers;
 
+use Yii;
+use app\models\User;
 use app\models\forms\AddFile;
 use app\models\forms\AddNote;
 use app\models\Home;
 use app\models\NotesLink;
 use app\models\Objects;
 use app\models\Status;
-use Yii;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\UploadedFile;
 
-class SiteController extends Controller
-{
-    public function actionIndex()
-    {
+class SiteController extends Controller{
+
+    public function behaviors(){
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+                'denyCallback' => function () {
+                    return Yii::$app->response->redirect(['/login/index']);
+                },
+            ],
+        ];
+    }
+    public function actionIndex(){
         $this->view->title = 'Объекты';
-        $this->view->registerCsrfMetaTags();
-        $this->view->registerMetaTag(['charset' => Yii::$app->charset], 'charset');
         $this->view->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width,initial-scale=1.0,  shrink-to-fit=no']);
-        $this->view->registerMetaTag(['name' => 'description', 'content' => 'О чем страница']);
-        $this->view->registerMetaTag(['name' => 'keywords', 'content' => '']);
 
         $query = Objects::find();
 
@@ -50,14 +63,9 @@ class SiteController extends Controller
         return $this->render('index', compact('objects', 'status', 'total_count'));
     }
 
-    public function actionObject()
-    {
+    public function actionObject(){
         $this->view->title = 'Объект';
-        $this->view->registerCsrfMetaTags();
-        $this->view->registerMetaTag(['charset' => Yii::$app->charset], 'charset');
         $this->view->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width,initial-scale=1.0,  shrink-to-fit=no']);
-        $this->view->registerMetaTag(['name' => 'description', 'content' => 'О чем страница']);
-        $this->view->registerMetaTag(['name' => 'keywords', 'content' => '']);
 
 
         $id = Yii::$app->request->get('id');
@@ -66,14 +74,9 @@ class SiteController extends Controller
         return $this->render('object', compact('object', 'id', 'homes'));
     }
 
-    public function actionInfo()
-    {
+    public function actionInfo(){
         $this->view->title = 'Объект';
-        $this->view->registerCsrfMetaTags();
-        $this->view->registerMetaTag(['charset' => Yii::$app->charset], 'charset');
         $this->view->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width,initial-scale=1.0,  shrink-to-fit=no']);
-        $this->view->registerMetaTag(['name' => 'description', 'content' => 'О чем страница']);
-        $this->view->registerMetaTag(['name' => 'keywords', 'content' => '']);
 
 
         $id = Yii::$app->request->get('id');
@@ -81,14 +84,9 @@ class SiteController extends Controller
         return $this->render('info', compact('object', 'id'));
     }
 
-    public function actionTasks()
-    {
+    public function actionTasks(){
         $this->view->title = 'Объект';
-        $this->view->registerCsrfMetaTags();
-        $this->view->registerMetaTag(['charset' => Yii::$app->charset], 'charset');
         $this->view->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width,initial-scale=1.0,  shrink-to-fit=no']);
-        $this->view->registerMetaTag(['name' => 'description', 'content' => 'О чем страница']);
-        $this->view->registerMetaTag(['name' => 'keywords', 'content' => '']);
 
 
         $id = Yii::$app->request->get('id');
@@ -96,14 +94,9 @@ class SiteController extends Controller
         return $this->render('task', compact('object', 'id'));
     }
 
-    public function actionWorkSchedule()
-    {
+    public function actionWorkSchedule(){
         $this->view->title = 'Объект';
-        $this->view->registerCsrfMetaTags();
-        $this->view->registerMetaTag(['charset' => Yii::$app->charset], 'charset');
         $this->view->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width,initial-scale=1.0,  shrink-to-fit=no']);
-        $this->view->registerMetaTag(['name' => 'description', 'content' => 'О чем страница']);
-        $this->view->registerMetaTag(['name' => 'keywords', 'content' => '']);
 
 
         $id = Yii::$app->request->get('id');
@@ -111,14 +104,9 @@ class SiteController extends Controller
         return $this->render('work_schedule', compact('object', 'id'));
     }
 
-    public function actionNotes()
-    {
+    public function actionNotes(){
         $this->view->title = 'Объект';
-        $this->view->registerCsrfMetaTags();
-        $this->view->registerMetaTag(['charset' => Yii::$app->charset], 'charset');
         $this->view->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width,initial-scale=1.0,  shrink-to-fit=no']);
-        $this->view->registerMetaTag(['name' => 'description', 'content' => 'О чем страница']);
-        $this->view->registerMetaTag(['name' => 'keywords', 'content' => '']);
 
         $id = Yii::$app->request->get('id');
         $object = Objects::findOne($id);
@@ -136,14 +124,9 @@ class SiteController extends Controller
         return $this->render('notes', compact('object', 'id', 'notes', 'add_form', 'add_file'));
     }
 
-    public function actionEdit()
-    {
+    public function actionEdit(){
         $this->view->title = 'Редактирование объекта';
-        $this->view->registerCsrfMetaTags();
-        $this->view->registerMetaTag(['charset' => Yii::$app->charset], 'charset');
         $this->view->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width,initial-scale=1.0,  shrink-to-fit=no']);
-        $this->view->registerMetaTag(['name' => 'description', 'content' => 'О чем страница']);
-        $this->view->registerMetaTag(['name' => 'keywords', 'content' => '']);
         $this->layout = 'edit';
 
         $id = Yii::$app->request->get('id');
@@ -157,5 +140,4 @@ class SiteController extends Controller
 
         return $this->render('edit', compact('object',  'id'));
     }
-
 }

@@ -52,11 +52,11 @@ use yii\helpers\Html;
                     <?= Html::endForm() ?>
                     <div class="sObject__row row">
                         <?
-                        if (!empty($objects)) {
-                            foreach ($objects as $object) {
-                                echo $this->render('_loop_object', compact('object'));
-                            }
-                        };
+                            if (!empty($objects)) {
+                                foreach ($objects as $object) {
+                                    echo $this->render('_loop_object', compact('object'));
+                                }
+                            };
                         ?>
                         <div class="sObject__col col-sm-6 col-lg-4 col-xxl-auto">
                             <div class="sObject-card sObject-card--addNew" style="--bgDefColor: ">
