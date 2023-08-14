@@ -1,5 +1,6 @@
 <?php
 namespace app\models;
+use Yii;
 use DateTime;
 use yii\db\ActiveRecord;
 
@@ -42,6 +43,12 @@ class Floor extends ActiveRecord{
         $this->create = $current_time;
         $this->last_update = $current_time;
         return $this->save();
+    }
+
+    public function afterDelete(){
+        parent::afterDelete();
+        Flat::deleteAll(['floor_id' => $this->id]);
+        Yii::info("Flat related to Floor ID {$this->id} deleted.", __METHOD__);
     }
 
     public function rules(){

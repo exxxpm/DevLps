@@ -4,7 +4,6 @@ const JSCCommon = {
 		const link = '.btn-modal-js';
 		Fancybox.bind(link, {
 			arrows: false,
-			// // infobar: false,
 			touch: false,
 			trapFocus: false,
 			placeFocusBack: false,
@@ -95,47 +94,6 @@ const JSCCommon = {
 
 	// tabs  .
 	tabscostume(tab) {
-		// const tabs = document.querySelectorAll(tab);
-		// const indexOf = element => Array.from(element.parentNode.children).indexOf(element);
-		// tabs.forEach(element => {
-		// 	let tabs = element;
-		// 	const tabsCaption = tabs.querySelector(".tabs__caption");
-		// 	const tabsBtn = tabsCaption.querySelectorAll(".tabs__btn");
-		// 	const tabsWrap = tabs.querySelector(".tabs__wrap");
-		// 	const tabsContent = tabsWrap.querySelectorAll(".tabs__content");
-		// 	const random = Math.trunc(Math.random() * 1000);
-		// 	tabsBtn.forEach((el, index) => {
-		// 		const data = `tab-content-${random}-${index}`;
-		// 		el.dataset.tabBtn = data;
-		// 		const content = tabsContent[index];
-		// 		content.dataset.tabContent = data;
-		// 		if (!content.dataset.tabContent == data) return;
-
-		// 		const active = content.classList.contains('active') ? 'active' : '';
-		// 		// console.log(el.innerHTML);
-		// 		content.insertAdjacentHTML("beforebegin", `<div class="tabs__btn-accordion  btn btn-primary  mb-1 ${active}" data-tab-btn="${data}">${el.innerHTML}</div>`)
-		// 	})
-
-
-		// 	tabs.addEventListener('click', function (element) {
-		// 		const btn = element.target.closest(`[data-tab-btn]:not(.active)`);
-		// 		if (!btn) return;
-		// 		const data = btn.dataset.tabBtn;
-		// 		const tabsAllBtn = this.querySelectorAll(`[data-tab-btn`);
-		// 		const content = this.querySelectorAll(`[data-tab-content]`);
-		// 		tabsAllBtn.forEach(element => {
-		// 			element.dataset.tabBtn == data
-		// 				? element.classList.add('active')
-		// 				: element.classList.remove('active')
-		// 		});
-		// 		content.forEach(element => {
-		// 			element.dataset.tabContent == data
-		// 				? (element.classList.add('active'), element.previousSibling.classList.add('active'))
-		// 				: element.classList.remove('active')
-		// 		});
-		// 	})
-		// })
-
 		$('.' + tab + '__caption').on('click', '.' + tab + '__btn:not(.active)', function (e) {
 			$(this)
 				.addClass('active').siblings().removeClass('active')
@@ -183,48 +141,13 @@ const JSCCommon = {
 
 				Fancybox.close();
 				Fancybox.show([{ src: "#modal-thanks", type: "inline" }]);
-				// window.location.replace("/thanks.html");
 				setTimeout(function () {
 					// Done Functions
 					th.trigger("reset");
-					// $.magnificPopup.close();
-					// ym(53383120, 'reachGoal', 'zakaz');
-					// yaCounter55828534.reachGoal('zakaz');
 				}, 4000);
 			}).fail(function () { });
 
 		});
-
-
-		// async function submitForm(event) {
-		// 	event.preventDefault(); // отключаем перезагрузку/перенаправление страницы
-		// 	try {
-		// 		// Формируем запрос
-		// 		const response = await fetch(event.target.action, {
-		// 			method: 'POST',
-		// 			body: new FormData(event.target)
-		// 		});
-		// 		// проверяем, что ответ есть
-		// 		if (!response.ok) throw (`Ошибка при обращении к серверу: ${response.status}`);
-		// 		// проверяем, что ответ действительно JSON
-		// 		const contentType = response.headers.get('content-type');
-		// 		if (!contentType || !contentType.includes('application/json')) {
-		// 			throw ('Ошибка обработки. Ответ не JSON');
-		// 		}
-		// 		// обрабатываем запрос
-		// 		const json = await response.json();
-		// 		if (json.result === "success") {
-		// 			// в случае успеха
-		// 			alert(json.info);
-		// 		} else {
-		// 			// в случае ошибки
-		// 			console.log(json);
-		// 			throw (json.info);
-		// 		}
-		// 	} catch (error) { // обработка ошибки
-		// 		alert(error);
-		// 	}
-		// }
 	},
 	heightwindow() {
 		// First we get the viewport height and we multiple it by 1% to get a value for a vh unit
@@ -287,33 +210,6 @@ const JSCCommon = {
 					$(this).toggleClass('active');
 				});
 		});
-		// let parents = document.querySelectorAll('.dd-group-js');
-		// for (let parent of parents) {
-		// 	if (parent) {
-		// 		// childHeads, kind of funny))
-		// 		let ChildHeads = parent.querySelectorAll('.dd-head-js:not(.disabled)');
-		// 		$(ChildHeads).click(function () {
-		// 			let clickedHead = this;
-
-		// 			$(ChildHeads).each(function () {
-		// 				if (this === clickedHead) {
-		// 					//parent element gain toggle class, style head change via parent
-		// 					$(this.parentElement).toggleClass('active');
-		// 					$(this.parentElement).find('.dd-content-js').slideToggle(function () {
-		// 						$(this).toggleClass('active');
-		// 					});
-		// 				}
-		// 				else {
-		// 					$(this.parentElement).removeClass('active');
-		// 					$(this.parentElement).find('.dd-content-js').slideUp(function () {
-		// 						$(this).removeClass('active');
-		// 					});
-		// 				}
-		// 			});
-
-		// 		});
-		// 	}
-		// }
 	},
 	imgToSVG() {
 		const convertImages = (query, callback) => {
@@ -357,13 +253,10 @@ function eventHandler() {
 	JSCCommon.tabscostume('tabs');
 	JSCCommon.mobileMenu();
 	JSCCommon.inputMask();
-	// JSCCommon.sendForm();
 	JSCCommon.heightwindow();
 	JSCCommon.makeDDGroup();
 	JSCCommon.disabledBtn();
 	JSCCommon.imgToSVG();
-	// JSCCommon.toggleShow(".catalog-block__toggle--desctop", '.catalog-block__dropdown');
-	// JSCCommon.animateScroll();
 
 	function inputFile() {
 		let uploadField = document.querySelectorAll('.upload-field');
@@ -421,9 +314,6 @@ function eventHandler() {
 			el: ' .swiper-pagination',
 			type: 'bullets',
 			clickable: true,
-			// renderBullet: function (index, className) {
-			// 	return '<span class="' + className + '">' + (index + 1) + '</span>';
-			// }
 		},
 	}
 
@@ -471,14 +361,13 @@ function eventHandler() {
 	$('.custom-select--js').select2({
 		minimumResultsForSearch: -1,
 		dropdownParent: $('.select-status'),
-		// templateResult: format,
 		templateSelection: format,
 		escapeMarkup: function(m) {
 			return m;
 		},
 	}).trigger("change");
 	function format(state) {
-		if (!state.id) return state.text; // optgroup
+		if (!state.id) return state.text;
 		let changedElem = state.element.closest('.select-status').querySelector('.select2-selection--single');
 
 		changedElem.classList.remove('select2-selection--planning', 'select2-selection--in-work', 'select2-selection--done', 'select2-selection--arhive');
@@ -515,8 +404,6 @@ function eventHandler() {
 		"cancelLabel": "Сбросить",
 		"fromLabel": "с",
 		"toLabel": "по",
-		// "customRangeLabel": "Custom",
-		// "weekLabel": "W",
 		"daysOfWeek": [
 			"Вс",
 			"Пн",
@@ -575,74 +462,9 @@ function eventHandler() {
 	let tableCheckboxs = document.querySelectorAll('.main-table__title .custom-input input');
 	let bottomControlBar = document.querySelector('.bottom-control-bar');
 	let count = 0;
-	if(maintable) {
-		let toggleBtnsInnerLevel = maintable.querySelectorAll('.main-table__toggle-dropdown');
-		toggleBtnsInnerLevel.forEach(toggleBtn => {
-			toggleBtn.addEventListener('click', function(e) {
-				e.preventDefault();
-				let selfTr = this.closest('tr');
-				if (selfTr.nextElementSibling.classList == 'inner-level') {
-					selfTr.classList.toggle('active');
-					// console.log(selfTr.nextElementSibling.querySelector('td > div'));
-					$(selfTr.nextElementSibling.querySelector('td > div')).slideToggle();
-				}
-				let allCheckboxes = selfTr.nextElementSibling.querySelectorAll('.custom-input__input');
-				for (const checkbox of allCheckboxes) {
-					if(checkbox.checked) {
-						checkbox.checked = false;
-						count--;
-					}	
-				}
-				bottomControlBar.querySelector('p span').innerHTML = count;
-				if (count === 0) {
-					document.querySelector('body').classList.remove('page-with-control-bar');
-					if (bottomControlBar) $(bottomControlBar).fadeOut('fast');
-				}
-			})
-		});
-	}
-
-	function checkStatusBar() {
-		if (count === 0) {
-			document.querySelector('body').classList.remove('page-with-control-bar');
-			if (bottomControlBar) $(bottomControlBar).fadeOut('fast');
-		} else {
-			document.querySelector('body').classList.add('page-with-control-bar');
-			if (bottomControlBar) $(bottomControlBar).fadeIn('fast');
-		}
-	}
-	checkStatusBar();
-	if (tableCheckboxs.length > 0) {
-		for (const tableCheckbox of tableCheckboxs) {
-			tableCheckbox.addEventListener('change', (el) => {
-
-				if(tableCheckbox.checked === true) {
-					$(tableCheckbox).closest('.main-table').find('input[type="checkbox"]:not(:checked)').prop('disabled', true); 
-					$(tableCheckbox).closest('tr').siblings('tr:not(.inner-level)').find('input[type="checkbox"]').prop('disabled', false);
-					count += 1;
-				} else {
-					if ($(tableCheckbox).closest('.main-table').find('input[type="checkbox"]:checked').length === 0) {
-						$(tableCheckbox).closest('.main-table').find('input[type="checkbox"]').prop('disabled', false);
-					}
-					count -= 1;
-				}
-				bottomControlBar.querySelector('p span').innerHTML = count;
-				checkStatusBar();
-			})
-		}
-	}
-
 };
 if (document.readyState !== 'loading') {
 	eventHandler();
 } else {
 	document.addEventListener('DOMContentLoaded', eventHandler);
 }
-
-// window.onload = function () {
-// 	document.body.classList.add('loaded_hiding');
-// 	window.setTimeout(function () {
-// 		document.body.classList.add('loaded');
-// 		document.body.classList.remove('loaded_hiding');
-// 	}, 500);
-// }

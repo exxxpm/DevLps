@@ -1,5 +1,6 @@
 <?php
 namespace app\models;
+use Yii;
 use DateTime;
 use yii\db\ActiveRecord;
 
@@ -22,6 +23,12 @@ class Objects extends ActiveRecord{
         $this->last_update = $current_time;
 
         return $this->save();
+    }
+
+    public function afterDelete(){
+        parent::afterDelete();
+        Home::deleteAll(['object_id' => $this->id]);
+        Yii::info("Home related to Object ID {$this->id} deleted.", __METHOD__);
     }
 
     public function rules(){

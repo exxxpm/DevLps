@@ -1,6 +1,7 @@
 <?php
 namespace app\models;
 
+use Yii;
 use DateTime;
 use yii\db\ActiveRecord;
 
@@ -32,6 +33,13 @@ class Home extends ActiveRecord{
         $this->last_update = $current_time;
         $this->object_id = $id;
         return $this->save();
+    }
+
+    public function afterDelete(){
+        parent::afterDelete();
+        Entrance::deleteAll(['home_id' => $this->id]);
+        Yii::info("Entrance related to Home ID {$this->id} deleted.", __METHOD__);
+
     }
 
     public function rules(){
