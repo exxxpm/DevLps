@@ -11,8 +11,7 @@ class SignupForm extends Model{
     public $email;
     public $password;
 
-    public function rules()
-    {
+    public function rules(){
         return [
             ['username', 'trim'],
             ['username', 'required'],

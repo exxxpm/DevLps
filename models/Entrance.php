@@ -1,10 +1,28 @@
 <?php
 namespace app\models;
+
 use Yii;
 use DateTime;
 use yii\db\ActiveRecord;
 
 class Entrance extends ActiveRecord{
+
+    public function rules(){
+        return [
+            [['name'], 'required', 'message' => 'Необходимо заполнить «Название».'],
+            [['description'], 'trim'],
+            [['status_id'], 'integer'],
+            [['date_start'], 'validateDates'],
+            [['date_finish'], 'validateDates']
+        ];
+    }
+
+    public function validateDates($attribute, $params){
+        if ($this->$attribute == null || strlen($this->$attribute) <= 1) {
+            $this->addError($attribute, 'Необходимо заполнить данное поле.');
+        }
+    }
+
     public function getFloors(){
         return $this->hasMany(Floor::class, ['entrance_id' => 'id'])->count();
     }
@@ -30,6 +48,7 @@ class Entrance extends ActiveRecord{
         $this->last_update = $current_time;
         $this->home_id = $id;
         $this->object_id = $home->object_id;
+        $this->author_id =  Yii::$app->user->id;
         return $this->save();
     }
 
@@ -53,12 +72,5 @@ class Entrance extends ActiveRecord{
         Floor::deleteAll(['entrance_id' => $this->id]);
         Yii::info("Floor related to Entrance ID {$this->id} deleted.", __METHOD__);
 
-    }
-
-    public function rules(){
-        return [
-            [['date_start', 'date_finish'], 'required'],
-            [['name', 'description'], 'safe'],
-        ];
     }
 }

@@ -53,4 +53,18 @@ class AjaxController extends Controller{
             }
         }
     }
+
+    public function actionUpdateStatus() {
+        $object_id = Yii::$app->request->post('object_id');
+        $status_id = Yii::$app->request->post('status_id');
+        $object = Objects::findOne($object_id);
+
+        if ($object) {
+            $object->status_id = $status_id;
+            $object->save();
+            return 'Success';
+        }
+        return 'Error'; // Верните ответ в случае ошибки.
+    }
+
 }

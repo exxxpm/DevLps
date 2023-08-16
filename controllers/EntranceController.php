@@ -2,6 +2,7 @@
 namespace app\controllers;
 
 use Yii;
+use app\models\User;
 use app\models\Floor;
 use app\models\Home;
 use app\models\Objects;
@@ -36,6 +37,7 @@ class EntranceController extends Controller{
         $this->layout = 'edit';
 
         $id = Yii::$app->request->get('id');
+        $user = User::findOne(Yii::$app->user->id);
         $entrance = new Entrance();
         $home = Home::findOne($id);
 
@@ -45,7 +47,7 @@ class EntranceController extends Controller{
             }
         }
 
-        return $this->render('add', compact('entrance',  'id'));
+        return $this->render('add', compact('entrance',  'id', 'user'));
     }
 
     public function actionEdit(){
@@ -54,6 +56,7 @@ class EntranceController extends Controller{
         $this->layout = 'edit';
 
         $id = Yii::$app->request->get('id');
+        $user = User::findOne(Yii::$app->user->id);
         $entrance = Entrance::findOne($id);
 
         if ($entrance->load(Yii::$app->request->post())) {
@@ -62,7 +65,7 @@ class EntranceController extends Controller{
             }
         }
 
-        return $this->render('edit', compact('entrance',  'id'));
+        return $this->render('edit', compact('entrance',  'id', 'user'));
     }
 
     public function actionIndex(){

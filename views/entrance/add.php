@@ -41,6 +41,9 @@ use yii\widgets\ActiveForm;
                                 <span class="date-create">Указать дату начала</span>
                                 <?= $form->field($entrance, 'date_start')->hiddenInput(['class' => 'hidden_date-create'])->label(false); ?>
                             </div>
+                            <?php foreach ($entrance->getErrors('date_start') as $error): ?>
+                                <div class="custom-error-finish"><?= $error ?></div>
+                            <?php endforeach; ?>
                         </div>
                     </div>
                     <div class="col-12">
@@ -53,6 +56,9 @@ use yii\widgets\ActiveForm;
                                 <span class="date-finish">Указать дату завершения</span>
                                 <?= $form->field($entrance, 'date_finish')->hiddenInput(['class' => 'hidden_date-finish'])->label(false); ?>
                             </div>
+                            <?php foreach ($entrance->getErrors('date_finish') as $error): ?>
+                                <div class="custom-error-finish"><?= $error ?></div>
+                            <?php endforeach; ?>
                         </div>
                     </div>
                     <div class="col-12">
@@ -60,7 +66,7 @@ use yii\widgets\ActiveForm;
                             <p>Автор</p>
                             <div class="avatar-wrap">
                                 <div class="avatar"><span>МИ</span><img src="/web/img/avatar.jpg" alt="" loading="lazy"/>
-                                </div><span>Михаил Иванов</span>
+                                </div><span><?= $user->username ?></span>
                             </div>
                         </div>
                     </div>

@@ -130,15 +130,18 @@ class SiteController extends Controller{
         $this->layout = 'edit';
 
         $id = Yii::$app->request->get('id');
+        $user = User::findOne(Yii::$app->user->id);
         $object = new Objects();
 
         if ($object->load(Yii::$app->request->post())) {
-            if ($object->validate() && $object->change_object()) {
+            if ($object->validate() && $object->add_object()) {
                 return $this->refresh();
+            }else {
+                Yii::$app->getSession()->setFlash('error', 'Ошибка валидации');
             }
         }
 
-        return $this->render('add', compact('object',  'id'));
+        return $this->render('add', compact('object',  'id', 'user'));
     }
 
     public function actionEdit(){
@@ -147,14 +150,17 @@ class SiteController extends Controller{
         $this->layout = 'edit';
 
         $id = Yii::$app->request->get('id');
+        $user = User::findOne(Yii::$app->user->id);
         $object = Objects::findOne($id);
 
         if ($object->load(Yii::$app->request->post())) {
-            if ($object->validate() && $object->change_object()) {
+            if ($object->validate() && $object->edit_object()) {
                 return $this->refresh();
+            }else {
+                Yii::$app->getSession()->setFlash('error', 'Ошибка валидации');
             }
         }
 
-        return $this->render('edit', compact('object',  'id'));
+        return $this->render('edit', compact('object',  'id', 'user'));
     }
 }

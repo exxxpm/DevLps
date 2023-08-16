@@ -1,5 +1,8 @@
 <?php
 namespace app\controllers;
+
+use Yii;
+use app\models\User;
 use app\models\Entrance;
 use app\models\Flat;
 use app\models\Floor;
@@ -9,7 +12,6 @@ use app\models\Room;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
-use Yii;
 
 class RoomController extends Controller{
 
@@ -35,6 +37,7 @@ class RoomController extends Controller{
         $this->layout = 'edit';
 
         $id = Yii::$app->request->get('id');
+        $user = User::findOne(Yii::$app->user->id);
         $room = new Room();
         $flat = Flat::findOne($id);
 
@@ -44,7 +47,7 @@ class RoomController extends Controller{
             }
         }
 
-        return $this->render('add', compact('room',  'id'));
+        return $this->render('add', compact('room',  'id', 'user'));
     }
     public function actionEdit(){
 
@@ -53,6 +56,7 @@ class RoomController extends Controller{
         $this->layout = 'edit';
 
         $id = Yii::$app->request->get('id');
+        $user = User::findOne(Yii::$app->user->id);
         $room = Room::findOne($id);
 
         if ($room->load(Yii::$app->request->post())) {
@@ -61,7 +65,7 @@ class RoomController extends Controller{
             }
         }
 
-        return $this->render('edit', compact('room',  'id'));
+        return $this->render('edit', compact('room',  'id', 'user'));
     }
     public function actionIndex(){
         $this->view->title = 'Помещение';

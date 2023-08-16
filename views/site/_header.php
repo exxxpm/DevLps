@@ -1,6 +1,7 @@
 <?php
 /** @var TYPE_NAME $object */
 
+use yii\widgets\Pjax;
 use yii\helpers\Html;
 use app\widgets\SwiperBreadcrumbs;
 
@@ -55,22 +56,43 @@ use app\widgets\SwiperBreadcrumbs;
                     <div class="section-title">
                         <h1><?= $object->name ?></h1>
                         <div class="select-status">
-                            <select class="custom-select--js">
-                                <?php
-                                $statusOptions = [
-                                    2 => ['img' => '/web/img/svg/play.svg', 'text' => 'В работе'],
-                                    3 => ['img' => '/web/img/svg/done.svg', 'text' => 'Планирование'],
-                                    4 => ['img' => '/web/img/svg/time.svg', 'text' => 'Завершен'],
-                                    5 => ['img' => '/web/img/svg/archive.svg', 'text' => 'Архив'],
+                            <?php
+                                $options = [
+                                    ['label' => 'В работе', 'value' => '2', 'img' => '/web/img/svg/play.svg'],
+                                    ['label' => 'Планирование', 'value' => '3', 'img' => '/web/img/svg/done.svg'],
+                                    ['label' => 'Завершен', 'value' => '4', 'img' => '/web/img/svg/time.svg'],
+                                    ['label' => 'Архив', 'value' => '5', 'img' => '/web/img/svg/archive.svg'],
                                 ];
 
-                                $currentStatusId = $object->status->id;
-                                foreach ($statusOptions as $statusId => $statusData) {
-                                    $selected = ($currentStatusId == $statusId) ? 'selected' : '';
-                                    echo '<option data-img="' . $statusData['img'] . '" ' . $selected . '>' . $statusData['text'] . '</option>';
+                                $statusOptions = [];
+                                foreach ($options as $option) {
+                                    $label = Html::encode($option['label']);
+                                    $imgSrc = Html::encode($option['img']);
+                                    $statusOptions[$option['value']] = $label;
                                 }
-                                ?>
-                            </select>
+                            ?>
+
+                            <?php Pjax::begin(['id' => 'status-dropdown']); ?>
+
+                            <?= Html::dropDownList(
+                                'status_id',
+                                $object->status_id,
+                                $statusOptions,
+                                [
+                                    'class' => 'custom-select--js',
+                                    'encode' => false,
+                                    'options' => array_reduce($options, function ($carry, $option) {
+                                        $imgSrc = Html::encode($option['img']);
+                                        $carry[$option['value']] = ['data-img' => $imgSrc];
+                                        return $carry;
+                                    }, []),
+                                    'data-pjax' => 1,
+                                    'data-id' => $object->id
+                                ]
+                            );
+                            ?>
+
+                            <?php Pjax::end(); ?>
                         </div>
                     </div>
                 </div>

@@ -63,8 +63,11 @@ use yii\widgets\ActiveForm;
                                     <use xlink:href="/web/img/svg/sprite.svg#calendar"></use>
                                 </svg>
                                 <span class="date-create">Указать дату начала</span>
-                                <?= $form->field($object, 'date_start')->hiddenInput(['class' => 'hidden_date-create'])->label(false); ?>
+                                <?= $form->field($object, 'date_start', ['errorOptions' => ['style' => 'display:none;']])->hiddenInput(['class' => 'hidden_date-create'])->label(false) ?>
                             </div>
+                            <?php foreach ($object->getErrors('date_start') as $error): ?>
+                                <div class="custom-error-create"><?= $error ?></div>
+                            <?php endforeach; ?>
                         </div>
                     </div>
                     <div class="col-12">
@@ -75,8 +78,12 @@ use yii\widgets\ActiveForm;
                                     <use xlink:href="/web/img/svg/sprite.svg#calendar"></use>
                                 </svg>
                                 <span class="date-finish">Указать дату завершения</span>
-                                <?= $form->field($object, 'date_finish')->hiddenInput(['class' => 'hidden_date-finish'])->label(false); ?>
+                                <?= $form->field($object, 'date_finish', ['errorOptions' => ['style' => 'display:none;']])->hiddenInput(['class' => 'hidden_date-finish'])->label(false) ?>
+
                             </div>
+                            <?php foreach ($object->getErrors('date_finish') as $error): ?>
+                                <div class="custom-error-finish"><?= $error ?></div>
+                            <?php endforeach; ?>
                         </div>
                     </div>
                     <div class="col-12">
@@ -84,7 +91,7 @@ use yii\widgets\ActiveForm;
                             <p>Автор</p>
                             <div class="avatar-wrap">
                                 <div class="avatar"><span>МИ</span><img src="/web/img/avatar.jpg" alt="" loading="lazy"/>
-                                </div><span>Михаил Иванов</span>
+                                </div><span><?= $user->username ?></span>
                             </div>
                         </div>
                     </div>

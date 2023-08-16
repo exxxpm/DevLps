@@ -2,6 +2,7 @@
 
 namespace app\models\forms;
 
+use Yii;
 use app\models\File;
 use app\models\FileLink;
 use yii\base\Model;
@@ -22,7 +23,7 @@ class AddFile extends Model
     public function rules()
     {
         return [
-            [['file'], 'file', 'skipOnEmpty' => false, 'maxFiles' => 10000],
+            [['file'], 'file', 'skipOnEmpty' => true, 'maxFiles' => 10000],
         ];
     }
 

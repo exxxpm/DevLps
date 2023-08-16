@@ -2,6 +2,7 @@
 namespace app\controllers;
 
 use Yii;
+use app\models\User;
 use app\models\Entrance;
 use app\models\Flat;
 use app\models\Floor;
@@ -35,6 +36,7 @@ class FloorController extends Controller{
         $this->layout = 'edit';
 
         $id = Yii::$app->request->get('id');
+        $user = User::findOne(Yii::$app->user->id);
         $floor = new Floor();
         $entrance = Entrance::findOne($id);
 
@@ -44,7 +46,7 @@ class FloorController extends Controller{
             }
         }
 
-        return $this->render('add', compact('floor',  'id'));
+        return $this->render('add', compact('floor',  'id', 'user'));
     }
     public function actionEdit(){
 
@@ -53,6 +55,7 @@ class FloorController extends Controller{
         $this->layout = 'edit';
 
         $id = Yii::$app->request->get('id');
+        $user = User::findOne(Yii::$app->user->id);
         $floor = Floor::findOne($id);
 
         if ($floor->load(Yii::$app->request->post())) {
@@ -61,7 +64,7 @@ class FloorController extends Controller{
             }
         }
 
-        return $this->render('edit', compact('floor',  'id'));
+        return $this->render('edit', compact('floor',  'id', 'user'));
     }
     public function actionIndex(){
         $this->view->title = 'Этаж';

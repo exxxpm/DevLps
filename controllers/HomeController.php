@@ -2,6 +2,7 @@
 namespace app\controllers;
 
 use Yii;
+use app\models\User;
 use app\models\Entrance;
 use app\models\Objects;
 use yii\web\Controller;
@@ -36,15 +37,16 @@ class HomeController extends Controller{
         $this->layout = 'edit';
 
         $id = Yii::$app->request->get('id');
+        $user = User::findOne(Yii::$app->user->id);
         $home = new Home();
 
         if ($home->load(Yii::$app->request->post())) {
-            if ($home->validate() && $home->change_home($id)) {
+            if ($home->validate() && $home->add_home($id)) {
                 return $this->refresh();
             }
         }
 
-        return $this->render('add', compact('home',  'id'));
+        return $this->render('add', compact('home',  'id', 'user'));
     }
 
     public function actionEdit(){
@@ -53,15 +55,16 @@ class HomeController extends Controller{
         $this->layout = 'edit';
 
         $id = Yii::$app->request->get('id');
+        $user = User::findOne(Yii::$app->user->id);
         $home = Home::findOne($id);
 
         if ($home->load(Yii::$app->request->post())) {
-            if ($home->validate() && $home->change_home($id)) {
+            if ($home->validate() && $home->edit_home($id)) {
                 return $this->refresh();
             }
         }
 
-        return $this->render('edit', compact('home',  'id'));
+        return $this->render('edit', compact('home',  'id', 'user'));
     }
 
     public function actionIndex(){

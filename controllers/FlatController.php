@@ -2,6 +2,7 @@
 namespace app\controllers;
 
 use Yii;
+use app\models\User;
 use app\models\Entrance;
 use app\models\Flat;
 use app\models\Floor;
@@ -37,6 +38,7 @@ class FlatController extends Controller{
         $this->layout = 'edit';
 
         $id = Yii::$app->request->get('id');
+        $user = User::findOne(Yii::$app->user->id);
         $flat = new Flat();
         $floor = Floor::findOne($id);
 
@@ -46,7 +48,7 @@ class FlatController extends Controller{
             }
         }
 
-        return $this->render('add', compact('flat',  'id'));
+        return $this->render('add', compact('flat',  'id', 'user'));
     }
     public function actionEdit(){
 
@@ -55,6 +57,7 @@ class FlatController extends Controller{
         $this->layout = 'edit';
 
         $id = Yii::$app->request->get('id');
+        $user = User::findOne(Yii::$app->user->id);
         $flat = Flat::findOne($id);
 
         if ($flat->load(Yii::$app->request->post())) {
@@ -63,7 +66,7 @@ class FlatController extends Controller{
             }
         }
 
-        return $this->render('edit', compact('flat',  'id'));
+        return $this->render('edit', compact('flat',  'id', 'user'));
     }
     public function actionIndex(){
         $this->view->title = 'Квартира';

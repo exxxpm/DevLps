@@ -107,4 +107,36 @@ $(document).ready(function() {
             }
         });
     });
+
+    $('body').on("change", ".custom-select--js", function() {
+        var status_id = $(this).val();
+        var object_id = $(this).data("id");
+
+        $.ajax({
+            type: "POST",
+            url: "/web/ajax/update-status",
+            data: {
+                object_id: object_id,
+                status_id: status_id
+            },
+            success: function(response) {
+            },
+            error: function(error) {
+                console.log("Pizda")
+            }
+        });
+    });
+
+    $('.date-create').on('DOMSubtreeModified', function() {
+        if ($(this).text() !== 'Указать дату начала') {
+            $('.custom-error-create').hide();
+        }
+    });
+
+    $('.date-finish').on('DOMSubtreeModified', function() {
+        if ($(this).text() !== 'Указать дату завершения') {
+            $('.custom-error-finish').hide();
+        }
+    });
+
 });

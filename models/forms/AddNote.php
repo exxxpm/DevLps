@@ -2,6 +2,7 @@
 
 namespace app\models\forms;
 
+use Yii;
 use app\models\FileLink;
 use app\models\Notes;
 use app\models\NotesLink;
@@ -22,7 +23,7 @@ class AddNote extends Model {
     public function add(){
         $model = new Notes();
 
-        $model->author_id = 1;
+        $model->author_id =  Yii::$app->user->id;
         $model->message = $this->message;
         $model->date = time();
 

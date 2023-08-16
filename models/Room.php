@@ -1,9 +1,27 @@
 <?php
 namespace app\models;
+
+use Yii;
 use DateTime;
 use yii\db\ActiveRecord;
 
 class Room extends ActiveRecord{
+
+    public function rules(){
+        return [
+            [['name'], 'required', 'message' => 'Необходимо заполнить «Название».'],
+            [['description'], 'trim'],
+            [['status_id'], 'integer'],
+            [['date_start'], 'validateDates'],
+            [['date_finish'], 'validateDates']
+        ];
+    }
+
+    public function validateDates($attribute, $params){
+        if ($this->$attribute == null || strlen($this->$attribute) <= 1) {
+            $this->addError($attribute, 'Необходимо заполнить данное поле.');
+        }
+    }
     public function add_room($id, $flat) {
         $months = ['Янв' => 'Jan', 'Фев' => 'Feb', 'Март' => 'Mar', 'Апр' => 'Apr','Май' => 'May', 'Июнь' => 'Jun', 'Июль' => 'Jul', 'Авг' => 'Aug','Сен' => 'Sep', 'Окт' => 'Oct', 'Ноя' => 'Nov', 'Дек' => 'Dec'];
 
@@ -21,6 +39,7 @@ class Room extends ActiveRecord{
         $this->entrance_id = $flat->entrance_id;
         $this->home_id = $flat->home_id;
         $this->object_id = $flat->object_id;
+        $this->author_id =  Yii::$app->user->id;
         return $this->save();
     }
 
@@ -37,12 +56,5 @@ class Room extends ActiveRecord{
         $this->create = $current_time;
         $this->last_update = $current_time;
         return $this->save();
-    }
-
-    public function rules(){
-        return [
-            [['date_start', 'date_finish'], 'required'],
-            [['name', 'description'], 'safe'],
-        ];
     }
 }

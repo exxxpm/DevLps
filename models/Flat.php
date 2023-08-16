@@ -1,10 +1,27 @@
 <?php
 namespace app\models;
+
 use Yii;
 use DateTime;
 use yii\db\ActiveRecord;
 
 class Flat extends ActiveRecord{
+
+    public function rules(){
+        return [
+            [['name'], 'required', 'message' => 'Необходимо заполнить «Название».'],
+            [['description'], 'trim'],
+            [['status_id'], 'integer'],
+            [['date_start'], 'validateDates'],
+            [['date_finish'], 'validateDates']
+        ];
+    }
+
+    public function validateDates($attribute, $params){
+        if ($this->$attribute == null || strlen($this->$attribute) <= 1) {
+            $this->addError($attribute, 'Необходимо заполнить данное поле.');
+        }
+    }
     public function getRooms(){
         return $this->hasMany(Room::class, ['flat_id' => 'id'])->count();
     }
@@ -24,6 +41,7 @@ class Flat extends ActiveRecord{
         $this->entrance_id = $floor->entrance_id;
         $this->home_id = $floor->home_id;
         $this->object_id = $floor->object_id;
+        $this->author_id =  Yii::$app->user->id;
         return $this->save();
     }
 
@@ -46,12 +64,5 @@ class Flat extends ActiveRecord{
         parent::afterDelete();
         Room::deleteAll(['flat_id' => $this->id]);
         Yii::info("Room related to Flat ID {$this->id} deleted.", __METHOD__);
-    }
-
-    public function rules(){
-        return [
-            [['date_start', 'date_finish'], 'required'],
-            [['name', 'description'], 'safe'],
-        ];
     }
 }

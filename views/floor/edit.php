@@ -61,7 +61,7 @@ use yii\widgets\ActiveForm;
                             <p>Автор</p>
                             <div class="avatar-wrap">
                                 <div class="avatar"><span>МИ</span><img src="/web/img/avatar.jpg" alt="" loading="lazy"/></div>
-                                <span>Михаил Иванов</span>
+                                <span><?= $user->username ?></span>
                             </div>
                         </div>
                     </div>
