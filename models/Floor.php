@@ -11,7 +11,6 @@ class Floor extends ActiveRecord{
         return [
             [['name'], 'required', 'message' => 'Необходимо заполнить «Название».'],
             [['description'], 'trim'],
-            [['status_id'], 'integer'],
             [['date_start'], 'validateDates'],
             [['date_finish'], 'validateDates']
         ];

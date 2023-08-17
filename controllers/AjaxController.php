@@ -5,7 +5,7 @@ use Yii;
 use yii\web\Controller;
 use app\models\Entrance;
 use app\models\Floor;
-
+use app\models\FileLink;
 use app\models\Flat;
 use app\models\Home;
 use app\models\Objects;
@@ -19,6 +19,23 @@ class AjaxController extends Controller{
 
         $html = $this->renderAjax('view_list/'.$model , compact('id'));
         return json_encode(['html' => $html,]);
+    }
+
+    public function actionDeleteFile(){
+        $file_id = Yii::$app->request->post('id');
+        $fileLink = FileLink::findOne(['file_id' => $file_id]);
+
+        if ($fileLink) {
+            $file = $fileLink->file;
+            $fileLink->delete();
+            $filePath = $fileLink->path;
+                if (file_exists($filePath)) {
+                    unlink($filePath);
+                }
+            if ($file) {
+                $file->delete();
+            } else {}
+        } else {}
     }
 
     public function actionDelete(){

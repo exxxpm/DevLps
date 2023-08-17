@@ -1,153 +1,6 @@
-<?php
-/** @var TYPE_NAME $home */
-/** @var TYPE_NAME $object */
-use app\widgets\SwiperBreadcrumbs;
-?>
-
 <div class="main-center-wrap">
+    <?= $this->render('_header', compact('home','object', 'id')); ?>
     <main>
-        <div class="page-head">
-            <div class="container-fluid">
-                <div class="page-head__row row align-items-center">
-                    <div class="col">
-                        <?
-                            $breadcrumbsLinks = [['label' => $object->name, 'url' => '/web/site/object/' . $object->id], ['label' => $home->name]];
-                            echo SwiperBreadcrumbs::widget(['links' => $breadcrumbsLinks]);
-                        ?>
-                    </div>
-                    <div class="page-head__col col-lg order-md-4">
-                        <h1><?= $home->name ?>
-                            <div class="badge badge-primary">33%</div>
-                        </h1>
-                    </div>
-                    <div class="col-12 d-none d-md-block m-0 p-0 order-md-3"></div>
-                    <div class="page-head__col col-md-auto order-md-2">
-                        <a class="page-head__edit" href="/web/home/edit/<?= $home->id ?>">Редактировать
-                            <svg class="icon icon-edit ">
-                                <use xlink:href="/web/img/svg/sprite.svg#edit"></use>
-                            </svg>
-                        </a>
-                    </div>
-                    <div class="page-head__col col-md-auto order-md-last">
-                        <div class="startDate">
-                            <svg class="icon icon-calendar ">
-                                <use xlink:href="/web/img/svg/sprite.svg#calendar"></use>
-                            </svg>
-                            <?= Yii::$app->formatter->asDate($home->date_start); ?> – <?= Yii::$app->formatter->asDate($home->date_start); ?>
-                        </div>
-                    </div>
-                    <div class="page-head__col col-md-auto order-md-5">
-                        <div class="task-stat">
-                            <svg class="icon icon-fist ">
-                                <use xlink:href="/web/img/svg/sprite.svg#fist"></use>
-                            </svg>
-                            321/433
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- start sObjectDetails-->
-        <div class="sObjectDetails section" id="sObjectDetails">
-            <div class="container-fluid">
-                <div class="sObjectDetails__header">
-                    <div class="details-with-toggle details-with-toggle--js">
-                        <div class="details-with-toggle__wrap">
-                            <div class="details-with-toggle__stats-row details-with-toggle__stats-row--without-span row">
-                                <div class="details-with-toggle__col col-md-auto">
-                                    <div class="details-with-toggle__item"><span>Этаж</span>
-                                        <p>7 эт
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="details-with-toggle__col col-md-auto">
-                                    <div class="details-with-toggle__item"><span>Квартиры</span>
-                                        <p>728 кв
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="details-with-toggle__col col-md-auto">
-                                    <div class="details-with-toggle__item"><span>Помещения</span>
-                                        <p>1350 пом
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="details-with-toggle__col col-md-auto">
-                                    <div class="details-with-toggle__item"><span>Площадь</span>
-                                        <p>S 3440 м²
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="details-with-toggle__btn-more btn d-md-none">
-                            <div class="show">Подробнее</div>
-                            <div class="hide">Свернуть</div>
-                            <svg class="icon icon-chevron-down ">
-                                <use xlink:href="/web/img/svg/sprite.svg#chevron-down"></use>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="sObjectDetails__row row">
-                        <div class="col-sm-6 col-lg-4 col-xl-3">
-                            <div class="work-status">
-                                <div class="row">
-                                    <div class="col">Стяжка пола</div>
-                                    <div class="col-auto fw-500">22%</div>
-                                </div>
-                                <div class="line" style="--w: 22%; --bgColor: #467CF4"></div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-4 col-xl-3">
-                            <div class="work-status">
-                                <div class="row">
-                                    <div class="col">Натяжка потолка</div>
-                                    <div class="col-auto fw-500">63%</div>
-                                </div>
-                                <div class="line" style="--w: 63%; --bgColor: #1DBA6F"></div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-4 col-xl-3">
-                            <div class="work-status">
-                                <div class="row">
-                                    <div class="col">Штукатурка стен</div>
-                                    <div class="col-auto fw-500">90%</div>
-                                </div>
-                                <div class="line" style="--w: 90%; --bgColor: #F4B13E"></div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-4 col-xl-3">
-                            <div class="work-status">
-                                <div class="row">
-                                    <div class="col">Шпаклевка стен</div>
-                                    <div class="col-auto fw-500">33%</div>
-                                </div>
-                                <div class="line" style="--w: 33%; --bgColor: #9A52DF"></div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-4 col-xl-3">
-                            <div class="work-status">
-                                <div class="row">
-                                    <div class="col">Затирка</div>
-                                    <div class="col-auto fw-500">100%</div>
-                                </div>
-                                <div class="line" style="--w: 100%; --bgColor: #E94410"></div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-4 col-xl-3">
-                            <div class="work-status">
-                                <div class="row">
-                                    <div class="col">Плинтус</div>
-                                    <div class="col-auto fw-500">3%</div>
-                                </div>
-                                <div class="line" style="--w: 3%; --bgColor: #8B9298"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- end sObjectDetails-->
         <!-- start sMainInfo-->
         <div class="sMainInfo section" id="sMainInfo">
             <div class="container-fluid">
@@ -155,7 +8,7 @@ use app\widgets\SwiperBreadcrumbs;
                     <div class="toggle-block swiper freeMode-slider freeMode-slider--js">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
-                                <a class="toggle-block__btn btn btn-outline-light active" href="#">
+                                <a class="toggle-block__btn btn btn-outline-light <? if (Yii::$app->controller->action->id == 'index') { echo " active "; } else { echo " "; } ?>" href="/web/home/index/<?= $id ?>">
                                     <svg class="icon icon-list ">
                                         <use xlink:href="/web/img/svg/sprite.svg#list"></use>
                                     </svg>
@@ -163,7 +16,7 @@ use app\widgets\SwiperBreadcrumbs;
                                 </a>
                             </div>
                             <div class="swiper-slide">
-                                <a class="toggle-block__btn btn btn-outline-light" href="#">
+                                <a class="toggle-block__btn btn btn-outline-light <? if (Yii::$app->controller->action->id == 'task') { echo " active "; } else { echo " "; } ?>" href="/web/home/task/<?= $id ?>">
                                     <svg class="icon icon-tasks ">
                                         <use xlink:href="/web/img/svg/sprite.svg#tasks"></use>
                                     </svg>
@@ -171,7 +24,7 @@ use app\widgets\SwiperBreadcrumbs;
                                 </a>
                             </div>
                             <div class="swiper-slide">
-                                <a class="toggle-block__btn btn btn-outline-light" href="#">
+                                <a class="toggle-block__btn btn btn-outline-light <? if (Yii::$app->controller->action->id == 'work-schedule') { echo " active "; } else { echo " "; } ?>" href="/web/home/work-schedule/<?= $id ?>">
                                     <svg class="icon icon-gantt ">
                                         <use xlink:href="/web/img/svg/sprite.svg#gantt"></use>
                                     </svg>
@@ -179,7 +32,7 @@ use app\widgets\SwiperBreadcrumbs;
                                 </a>
                             </div>
                             <div class="swiper-slide">
-                                <a class="toggle-block__btn btn btn-outline-light" href="#">
+                                <a class="toggle-block__btn btn btn-outline-light <? if (Yii::$app->controller->action->id == 'info') { echo " active "; } else { echo " "; } ?>" href="/web/home/info/<?= $id ?>">
                                     <svg class="icon icon-info ">
                                         <use xlink:href="/web/img/svg/sprite.svg#info"></use>
                                     </svg>
@@ -187,7 +40,7 @@ use app\widgets\SwiperBreadcrumbs;
                                 </a>
                             </div>
                             <div class="swiper-slide">
-                                <a class="toggle-block__btn btn btn-outline-light" href="#">
+                                <a class="toggle-block__btn btn btn-outline-light <? if (Yii::$app->controller->action->id == 'notes') {echo " active ";} else {echo " ";} ?>" href="/web/home/notes/<?= $id ?>">
                                     <svg class="icon icon-pen ">
                                         <use xlink:href="/web/img/svg/sprite.svg#pen"></use>
                                     </svg>

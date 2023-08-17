@@ -4,7 +4,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
-
+$months = ['Янв' => 'Jan', 'Фев' => 'Feb', 'Март' => 'Mar', 'Апр' => 'Apr', 'Май' => 'May', 'Июнь' => 'Jun', 'Июль' => 'Jul', 'Авг' => 'Aug', 'Сен' => 'Sep', 'Окт' => 'Oct', 'Ноя' => 'Nov', 'Дек' => 'Dec'];
 ?>
     <main>
         <!-- start sCreateObject-->
@@ -39,7 +39,7 @@ use yii\widgets\ActiveForm;
                                 <svg class="icon icon-calendar ">
                                     <use xlink:href="/web/img/svg/sprite.svg#calendar"></use>
                                 </svg>
-                                <span class="date-create">Указать дату начала</span>
+                                <span class="date-create"><?= date('d', $flat->date_start) . ' ' . array_search(date('M', $flat->date_start), $months) . ' ' . date('y', $flat->date_start);?></span>
                                 <?= $form->field($flat, 'date_start')->hiddenInput(['class' => 'hidden_date-create'])->label(false); ?>
                             </div>
                         </div>
@@ -51,7 +51,7 @@ use yii\widgets\ActiveForm;
                                 <svg class="icon icon-calendar ">
                                     <use xlink:href="/web/img/svg/sprite.svg#calendar"></use>
                                 </svg>
-                                <span class="date-finish">Указать дату завершения</span>
+                                <span class="date-finish"><?= date('d', $flat->date_finish) . ' ' . array_search(date('M', $flat->date_finish), $months) . ' ' . date('y', $flat->date_finish);?></span>
                                 <?= $form->field($flat, 'date_finish')->hiddenInput(['class' => 'hidden_date-finish'])->label(false); ?>
                             </div>
                         </div>

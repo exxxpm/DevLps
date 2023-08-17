@@ -1,8 +1,9 @@
 <?php
 /** @var TYPE_NAME $object */
 
+use yii\widgets\ActiveForm;
 ?>
-<
+
 <div class="main-center-wrap">
     <main>
         <?= $this->render('_header', compact('object', 'id')); ?>
@@ -73,11 +74,9 @@
                                     <td class="text-end">
                                         <div class="row g-2 align-items-center justify-content-end">
                                             <div class="col-auto">
-                                                <div class="avatar-block avatar-block--sm"
-                                                     style="background: #467CF4; color: #fff">МИ
-                                                </div>
+                                                <div class="avatar-block avatar-block--sm" style="background: #467CF4; color: #fff">МИ</div>
                                             </div>
-                                            <div class="col-auto">Михаил Иванов</div>
+                                            <div class="col-auto"><?= $user->username ?></div>
                                         </div>
                                     </td>
                                 </tr>
@@ -89,48 +88,24 @@
                         </div>
                         <div class="col-xl-4">
                             <h4>Файлы</h4>
-                            <div class="file-item">
-                                <a class="file-item__name" href="#">Сметная документация.xlsx
-                                </a>
-                                <div class="file-item__size">14 мб
-                                </div>
-                                <div class="file-item__btn-delete">
-                                    <svg class="icon icon-delete ">
-                                        <use xlink:href="/web/img/svg/sprite.svg#delete"></use>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="file-item">
-                                <a class="file-item__name" href="#">Генплан.pdf
-                                </a>
-                                <div class="file-item__size">14 мб
-                                </div>
-                                <div class="file-item__btn-delete">
-                                    <svg class="icon icon-delete ">
-                                        <use xlink:href="/web/img/svg/sprite.svg#delete"></use>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="file-item">
-                                <a class="file-item__name" href="#">Генплан2.pdf
-                                </a>
-                                <div class="file-item__size">14 мб
-                                </div>
-                                <div class="file-item__btn-delete">
-                                    <svg class="icon icon-delete ">
-                                        <use xlink:href="/web/img/svg/sprite.svg#delete"></use>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="upload-field text-primary">
-                                <label><span class="upload-field__btn">
-												<svg class="icon icon-attach ">
-													<use xlink:href="/web/img/svg/sprite.svg#attach"></use>
-												</svg></span><input class="upload-field__input input-upload invisible"
-                                                                    name="file" type="file"/><span
-                                            class="upload-field__file-name"> Прикрепить файл</span>
+                            <?
+                                if (!empty($files)) {
+                                    foreach ($files as $file) {
+                                        echo $this->render('/all_loop/_loop_files', compact('file'));
+                                    }
+                                };
+                            ?>
+                            <? $form = ActiveForm::begin(['id' => 'upload-form', 'options' => ['class' => 'upload-field text-primary', 'enctype' => 'multipart/form-data'],]); ?>
+                                <label>
+                                    <span class="upload-field__btn">
+                                        <svg class="icon icon-attach ">
+                                            <use xlink:href="/web/img/svg/sprite.svg#attach"></use>
+                                        </svg>
+                                    </span>
+                                    <?= $form->field($add_file, 'file[]')->fileInput(['class' => 'upload-field__input input-upload invisible', 'multiple' => true, 'accept' => 'image/*'])->label(false); ?>
+                                    <span class="upload-field__file-name"> Прикрепить файл</span>
                                 </label>
-                            </div>
+                            <? ActiveForm::end(); ?>
                         </div>
                     </div>
                 </div>

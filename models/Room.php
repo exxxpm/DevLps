@@ -11,7 +11,6 @@ class Room extends ActiveRecord{
         return [
             [['name'], 'required', 'message' => 'Необходимо заполнить «Название».'],
             [['description'], 'trim'],
-            [['status_id'], 'integer'],
             [['date_start'], 'validateDates'],
             [['date_finish'], 'validateDates']
         ];
@@ -22,6 +21,7 @@ class Room extends ActiveRecord{
             $this->addError($attribute, 'Необходимо заполнить данное поле.');
         }
     }
+
     public function add_room($id, $flat) {
         $months = ['Янв' => 'Jan', 'Фев' => 'Feb', 'Март' => 'Mar', 'Апр' => 'Apr','Май' => 'May', 'Июнь' => 'Jun', 'Июль' => 'Jul', 'Авг' => 'Aug','Сен' => 'Sep', 'Окт' => 'Oct', 'Ноя' => 'Nov', 'Дек' => 'Dec'];
 

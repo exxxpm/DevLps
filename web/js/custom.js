@@ -139,4 +139,22 @@ $(document).ready(function() {
         }
     });
 
+    $(document).ready(function() {
+        $('#upload-form').on('change', function() {
+            $('#upload-form').submit();
+        });
+    });
+
+    $('body').on('click', '.file-item__btn-delete', function() {
+        let id = $(this).data("id");
+
+        $.ajax({
+            url: '/web/ajax/delete-file',
+            data: { 'id': id },
+            type: 'POST',
+            success: function(data) {
+                location.reload();
+            }
+        });
+    });
 });

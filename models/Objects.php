@@ -10,6 +10,22 @@ class Objects extends ActiveRecord{
         return $this->hasOne(Status::class, ['id' => 'status_id']);
     }
 
+    public function getHomes(){
+        return $this->hasMany(Home::class, ['object_id' => 'id'])->count();
+    }
+
+    public function getEntrances(){
+        return $this->hasMany(Entrance::class, ['object_id' => 'id'])->count();
+    }
+
+    public function getFlats(){
+        return $this->hasMany(Flat::class, ['object_id' => 'id'])->count();
+    }
+
+    public function getRooms(){
+        return $this->hasMany(Room::class, ['object_id' => 'id'])->count();
+    }
+
     public function rules(){
         return [
             [['name'], 'required', 'message' => 'Необходимо заполнить «Название».'],
@@ -60,5 +76,13 @@ class Objects extends ActiveRecord{
     public function afterDelete(){
         parent::afterDelete();
         Home::deleteAll(['object_id' => $this->id]);
+
+        foreach (NotesLink::find()->where(['model_id' => $this->id, 'model' => 'object'])->orderBy(['id' => SORT_DESC])->all() as $notesLink) {
+            $note = $notesLink->note;
+            foreach ($note->files as $file) {
+                $file->delete();
+            }
+            $note->delete();
+        }
     }
 }

@@ -1,6 +1,7 @@
 <?php
 namespace app\controllers;
 
+use app\models\FileLink;
 use Yii;
 use app\models\User;
 use app\models\forms\AddFile;
@@ -80,8 +81,19 @@ class SiteController extends Controller{
 
 
         $id = Yii::$app->request->get('id');
+        $user = User::findOne(Yii::$app->user->id);
         $object = Objects::findOne($id);
-        return $this->render('info', compact('object', 'id'));
+        $files = FileLink::find()->where(['model_id' => $id, 'model' => 'object'])->orderBy(['id' => SORT_DESC])->all();
+
+        $add_file = new AddFile($id, "object");
+
+        if ($add_file->load(Yii::$app->request->post())) {
+            $add_file->file = UploadedFile::getInstances($add_file, 'file');
+            $add_file->add($object);
+            return $this->refresh();
+        }
+
+        return $this->render('info', compact('object', 'id', 'user', 'add_file', 'files'));
     }
 
     public function actionTasks(){

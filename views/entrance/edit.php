@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
+$months = ['Янв' => 'Jan', 'Фев' => 'Feb', 'Март' => 'Mar', 'Апр' => 'Apr', 'Май' => 'May', 'Июнь' => 'Jun', 'Июль' => 'Jul', 'Авг' => 'Aug', 'Сен' => 'Sep', 'Окт' => 'Oct', 'Ноя' => 'Nov', 'Дек' => 'Dec'];
 ?>
     <main>
         <!-- start sCreateObject-->
@@ -39,7 +40,7 @@ use yii\widgets\ActiveForm;
                                 <svg class="icon icon-calendar ">
                                     <use xlink:href="/web/img/svg/sprite.svg#calendar"></use>
                                 </svg>
-                                <span class="date-create">Указать дату начала</span>
+                                <span class="date-create"><?= date('d', $entrance->date_start) . ' ' . array_search(date('M', $entrance->date_start), $months) . ' ' . date('y', $entrance->date_start);?></span>
                                 <?= $form->field($entrance, 'date_start')->hiddenInput(['class' => 'hidden_date-create'])->label(false); ?>
                             </div>
                         </div>
@@ -51,7 +52,7 @@ use yii\widgets\ActiveForm;
                                 <svg class="icon icon-calendar ">
                                     <use xlink:href="/web/img/svg/sprite.svg#calendar"></use>
                                 </svg>
-                                <span class="date-finish">Указать дату завершения</span>
+                                <span class="date-finish"><?= date('d', $entrance->date_finish) . ' ' . array_search(date('M', $entrance->date_finish), $months) . ' ' . date('y', $entrance->date_finish);?></span>
                                 <?= $form->field($entrance, 'date_finish')->hiddenInput(['class' => 'hidden_date-finish'])->label(false); ?>
                             </div>
                         </div>
@@ -101,16 +102,16 @@ use yii\widgets\ActiveForm;
         <div class="sCreateObject__footer">
             <div class="sCreateObject__footer-row">
                 <?= Html::submitButton('Сохранить изменения', ['class' => 'sCreateObject__btn btn btn-accent'])?>
-                <a class="sCreateObject__btn btn btn-light" href="<?= Yii::$app->request->referrer ?: Url::to(['/web/site/'])?>">Отмена</a>
+                <a class="sCreateObject__btn btn btn-light" href="/web/entrance/index/<?= $id ?>">Отмена</a>
             </div>
         </div>
         <?php ActiveForm::end(); ?>
         <!-- end sCreateObject-->
-        <div class="close-btn">
+        <a href="/web/entrance/index/<?= $id ?>" class="close-btn">
             <svg class="icon icon-close ">
                 <use xlink:href="/web/img/svg/sprite.svg#close"></use>
             </svg>
-        </div>
+        </a>
     </main>
 
 <?php

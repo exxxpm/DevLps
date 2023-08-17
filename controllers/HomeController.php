@@ -2,6 +2,10 @@
 namespace app\controllers;
 
 use Yii;
+use app\models\FileLink;
+use app\models\forms\AddFile;
+use app\models\forms\AddNote;
+use app\models\NotesLink;
 use app\models\User;
 use app\models\Entrance;
 use app\models\Objects;
@@ -9,6 +13,7 @@ use yii\web\Controller;
 use \app\models\Home;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 class HomeController extends Controller{
 
@@ -78,6 +83,71 @@ class HomeController extends Controller{
         $entrances = Entrance::find()->where(['home_id' => $home->id, 'object_id' => $home->object_id])->all();
 
         return $this->render('index', compact('home', 'object', 'entrances', 'id'));
+    }
+
+    public function actionInfo(){
+        $this->view->title = 'Дом';
+        $this->view->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width,initial-scale=1.0,  shrink-to-fit=no']);
+
+
+        $id = Yii::$app->request->get('id');
+        $user = User::findOne(Yii::$app->user->id);
+        $home = Home::findOne($id);
+        $object = Objects::findOne($home->object_id);
+        $files = FileLink::find()->where(['model_id' => $id, 'model' => 'home'])->orderBy(['id' => SORT_DESC])->all();
+
+        $add_file = new AddFile($id, "home");
+
+        if ($add_file->load(Yii::$app->request->post())) {
+            $add_file->file = UploadedFile::getInstances($add_file, 'file');
+            $add_file->add($home);
+            return $this->refresh();
+        }
+
+        return $this->render('info', compact('home', 'object', 'id', 'user', 'add_file', 'files'));
+    }
+
+    public function actionTasks(){
+        $this->view->title = 'Дом';
+        $this->view->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width,initial-scale=1.0,  shrink-to-fit=no']);
+
+
+        $id = Yii::$app->request->get('id');
+        $home = Home::findOne($id);
+        $object = Objects::findOne($home->object_id);
+        return $this->render('task', compact('home', 'object','id'));
+    }
+
+    public function actionWorkSchedule(){
+        $this->view->title = 'Дом';
+        $this->view->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width,initial-scale=1.0,  shrink-to-fit=no']);
+
+
+        $id = Yii::$app->request->get('id');
+        $home = Home::findOne($id);
+        $object = Objects::findOne($home->object_id);
+        return $this->render('work_schedule', compact('home', 'object', 'id'));
+    }
+
+    public function actionNotes(){
+        $this->view->title = 'Дом';
+        $this->view->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width,initial-scale=1.0,  shrink-to-fit=no']);
+
+        $id = Yii::$app->request->get('id');
+        $home = Home::findOne($id);
+        $object = Objects::findOne($home->object_id);
+        $notes = NotesLink::find()->where(['model_id' => $id, 'model' => 'home'])->orderBy(['id' => SORT_DESC])->all();
+
+        $add_form = new AddNote($id, "home");
+        $add_file = new AddFile($id, "notes");
+
+        if ($add_form->load(Yii::$app->request->post()) && $add_file->load(Yii::$app->request->post())) {
+            $add_file->file = UploadedFile::getInstances($add_file, 'file');
+            $add_file->add($add_form->add());
+            return $this->refresh();
+        }
+
+        return $this->render('notes', compact('home', 'object', 'id', 'notes', 'add_form', 'add_file'));
     }
 
 }

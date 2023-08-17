@@ -101,16 +101,16 @@ use yii\widgets\ActiveForm;
         <div class="sCreateObject__footer">
             <div class="sCreateObject__footer-row">
                 <?= Html::submitButton('Сохранить изменения', ['class' => 'sCreateObject__btn btn btn-accent'])?>
-                <a class="sCreateObject__btn btn btn-light" href="<?= Yii::$app->request->referrer ?: Url::to(['/web/site/'])?>">Отмена</a>
+                <a class="sCreateObject__btn btn btn-light" href="/web/site/index/<?= $id ?>">Отмена</a>
             </div>
         </div>
         <?php ActiveForm::end(); ?>
         <!-- end sCreateObject-->
-        <div class="close-btn">
+        <a href="/web/site/index/<?= $id ?>" class="close-btn">
             <svg class="icon icon-close ">
                 <use xlink:href="/web/img/svg/sprite.svg#close"></use>
             </svg>
-        </div>
+        </a>
     </main>
 <?php
 $script = <<< JS

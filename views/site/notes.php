@@ -118,7 +118,7 @@ use \yii\widgets\ActiveForm;
                             <?
                             if (!empty($notes)) {
                                 foreach ($notes as $note) {
-                                    echo $this->render('_loop_notes', compact('note'));
+                                    echo $this->render('/all_loop/_loop_notes', compact('note'));
                                 }
                             };
                             ?>

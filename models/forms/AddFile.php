@@ -14,21 +14,18 @@ class AddFile extends Model
     public $id;
     public $model;
 
-    public function __construct($id, $model)
-    {
+    public function __construct($id, $model){
         $this->id = $id;
         $this->model = $model;
     }
 
-    public function rules()
-    {
+    public function rules(){
         return [
             [['file'], 'file', 'skipOnEmpty' => true, 'maxFiles' => 10000],
         ];
     }
 
-    public function add($model)
-    {
+    public function add($model){
         foreach ($this->file as $files_item) {
             $files = new File();
             $path = $this->get_full_path($files_item);
@@ -43,15 +40,13 @@ class AddFile extends Model
         }
     }
 
-    private function get_full_path($files_item)
-    {
+    private function get_full_path($files_item){
         $uploadPath = 'uploads/' . date('Y') . '/' . date('m');
         $fullPath = $uploadPath . '/' . $files_item->baseName . '.' . $files_item->extension;
         return ['uploadPath' => $uploadPath, 'fullPath' => $fullPath];
     }
 
-    private function add_files_link($model, $files)
-    {
+    private function add_files_link($model, $files){
         $link = new FileLink();
         $link->file_id = $files->id;
         $link->model = $this->model;
@@ -59,12 +54,11 @@ class AddFile extends Model
         $link->save();
     }
 
-    public function upload($files_item, $path)
-    {
+    public function upload($files_item, $path){
         if ($this->validate()) {
 
             if (!file_exists($path['uploadPath'])) {
-                FileHelper::createDirectory($uploadPath, 0775, true);
+                FileHelper::createDirectory($path['uploadPath'], 0775, true);
             }
 
             $files_item->saveAs($path['fullPath']);

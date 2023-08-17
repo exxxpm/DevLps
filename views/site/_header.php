@@ -32,23 +32,23 @@ use app\widgets\SwiperBreadcrumbs;
     <div class="sPageInfo__continer container-fluid tabs">
         <div class="sPageInfo__wrap bg-wrap">
             <div class="tabs__wrap">
-                <div class="tabs__content active"><img class="object-fit-js picture-bg" src="/web/img/service-1.jpg"
-                                                       alt="" loading="lazy"/>
+                <div class="tabs__content active">
+                    <img class="object-fit-js picture-bg" src="/web/img/service-1.jpg" alt="" loading="lazy"/>
                 </div>
-                <div class="tabs__content"><img class="object-fit-js picture-bg" src="/web/img/service-1.jpg" alt=""
-                                                loading="lazy"/>
+                <div class="tabs__content">
+                    <img class="object-fit-js picture-bg" src="/web/img/service-1.jpg" alt="" loading="lazy"/>
                 </div>
-                <div class="tabs__content"><img class="object-fit-js picture-bg" src="/web/img/service-1.jpg" alt=""
-                                                loading="lazy"/>
+                <div class="tabs__content">
+                    <img class="object-fit-js picture-bg" src="/web/img/service-1.jpg" alt="" loading="lazy"/>
                 </div>
-                <div class="tabs__content"><img class="object-fit-js picture-bg" src="/web/img/service-1.jpg" alt=""
-                                                loading="lazy"/>
+                <div class="tabs__content">
+                    <img class="object-fit-js picture-bg" src="/web/img/service-1.jpg" alt="" loading="lazy"/>
                 </div>
-                <div class="tabs__content"><img class="object-fit-js picture-bg" src="/web/img/service-1.jpg" alt=""
-                                                loading="lazy"/>
+                <div class="tabs__content">
+                    <img class="object-fit-js picture-bg" src="/web/img/service-1.jpg" alt="" loading="lazy"/>
                 </div>
-                <div class="tabs__content"><img class="object-fit-js picture-bg" src="/web/img/service-1.jpg" alt=""
-                                                loading="lazy"/>
+                <div class="tabs__content">
+                    <img class="object-fit-js picture-bg" src="/web/img/service-1.jpg" alt="" loading="lazy"/>
                 </div>
             </div>
             <div class="sPageInfo__row row">
@@ -108,8 +108,7 @@ use app\widgets\SwiperBreadcrumbs;
                             <svg class="icon icon-calendar ">
                                 <use xlink:href="/web/img/svg/sprite.svg#calendar"></use>
                             </svg>
-                            <?= Yii::$app->formatter->asDate($object->date_start); ?>
-                            - <?= Yii::$app->formatter->asDate($object->date_finish); ?>
+                            <?= Yii::$app->formatter->asDate($object->date_start); ?> - <?= Yii::$app->formatter->asDate($object->date_finish); ?>
                         </div>
                     </div>
                 </div>
@@ -133,20 +132,17 @@ use app\widgets\SwiperBreadcrumbs;
                             <div class="details-with-toggle__stats-row row">
                                 <div class="details-with-toggle__col col-md-3 col-xl">
                                     <div class="details-with-toggle__item"><span>Срок</span>
-                                        <p>90дней
-                                        </p>
+                                        <p><?= floor(abs($object->date_finish - $object->date_start) / 86400) ?> дней</p>
                                     </div>
                                 </div>
                                 <div class="details-with-toggle__col col-md-3 col-xl">
                                     <div class="details-with-toggle__item"><span>До конца</span>
-                                        <p>76 дней
-                                        </p>
+                                        <p><?= floor(abs(time() - $object->date_finish) / 86400) ?> дней</p>
                                     </div>
                                 </div>
                                 <div class="details-with-toggle__col col-md-3 col-xl">
                                     <div class="details-with-toggle__item"><span>План</span>
-                                        <p>11 фев 24
-                                        </p>
+                                        <p><?= Yii::$app->formatter->asDate($object->date_finish); ?></p>
                                     </div>
                                 </div>
                                 <div class="details-with-toggle__col col-md-3 col-xl">
@@ -174,26 +170,22 @@ use app\widgets\SwiperBreadcrumbs;
                                     class="details-with-toggle__stats-row details-with-toggle__stats-row--without-span row">
                                 <div class="details-with-toggle__col col-md-3 col-xl">
                                     <div class="details-with-toggle__item"><span>Дома</span>
-                                        <p>3 дом
-                                        </p>
+                                        <p><?= $object->homes ?> дом</p>
                                     </div>
                                 </div>
                                 <div class="details-with-toggle__col col-md-3 col-xl">
                                     <div class="details-with-toggle__item"><span>Подъезды</span>
-                                        <p>12 под
-                                        </p>
+                                        <p><?= $object->entrances ?> под</p>
                                     </div>
                                 </div>
                                 <div class="details-with-toggle__col col-md-3 col-xl">
                                     <div class="details-with-toggle__item"><span>Квартиры</span>
-                                        <p>728 кв
-                                        </p>
+                                        <p><?= $object->flats ?>  кв</p>
                                     </div>
                                 </div>
                                 <div class="details-with-toggle__col col-md-3 col-xl">
                                     <div class="details-with-toggle__item"><span>Помещения</span>
-                                        <p>1350 пом
-                                        </p>
+                                        <p><?= $object->rooms ?>  пом</p>
                                     </div>
                                 </div>
                                 <div class="details-with-toggle__col col-md-3 col-xl">

@@ -1,6 +1,10 @@
 <?php
 namespace app\controllers;
 
+use app\models\FileLink;
+use app\models\forms\AddFile;
+use app\models\forms\AddNote;
+use app\models\NotesLink;
 use Yii;
 use app\models\User;
 use app\models\Entrance;
@@ -12,6 +16,7 @@ use app\models\Objects;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\filters\AccessControl;
+use yii\web\UploadedFile;
 
 class FlatController extends Controller{
 
@@ -81,6 +86,83 @@ class FlatController extends Controller{
         $rooms = Room::find()->where(['home_id' => $flat->home_id, 'object_id' => $flat->object_id, 'entrance_id' => $flat->entrance_id, 'floor_id' => $flat->floor_id, 'flat_id' => $id])->all();
 
         return $this->render('index', compact('floor','entrance', 'home', 'object', 'flat', 'rooms', 'id'));
+    }
+
+    public function actionInfo(){
+        $this->view->title = 'Этаж';
+        $this->view->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width,initial-scale=1.0,  shrink-to-fit=no']);
+
+
+        $id = Yii::$app->request->get('id');
+        $user = User::findOne(Yii::$app->user->id);
+        $flat = Flat::findOne($id);
+        $floor = Floor::findOne($flat->floor_id);
+        $entrance = Entrance::findOne($flat->entrance_id);
+        $home = Home::findOne($flat->home_id);
+        $object = Objects::findOne($flat->object_id);
+        $files = FileLink::find()->where(['model_id' => $id, 'model' => 'flat'])->orderBy(['id' => SORT_DESC])->all();
+
+        $add_file = new AddFile($id, "flat");
+
+        if ($add_file->load(Yii::$app->request->post())) {
+            $add_file->file = UploadedFile::getInstances($add_file, 'file');
+            $add_file->add($flat);
+            return $this->refresh();
+        }
+
+        return $this->render('info', compact('floor','entrance', 'home', 'object', 'flat', 'id', 'user', 'add_file', 'files'));
+    }
+
+    public function actionTasks(){
+        $this->view->title = 'Этаж';
+        $this->view->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width,initial-scale=1.0,  shrink-to-fit=no']);
+
+
+        $id = Yii::$app->request->get('id');
+        $flat = Flat::findOne($id);
+        $floor = Floor::findOne($flat->floor_id);
+        $entrance = Entrance::findOne($flat->entrance_id);
+        $home = Home::findOne($flat->home_id);
+        $object = Objects::findOne($flat->object_id);
+        return $this->render('task', compact('floor','entrance', 'home', 'object', 'flat', 'id'));
+    }
+
+    public function actionWorkSchedule(){
+        $this->view->title = 'Этаж';
+        $this->view->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width,initial-scale=1.0,  shrink-to-fit=no']);
+
+
+        $id = Yii::$app->request->get('id');
+        $flat = Flat::findOne($id);
+        $floor = Floor::findOne($flat->floor_id);
+        $entrance = Entrance::findOne($flat->entrance_id);
+        $home = Home::findOne($flat->home_id);
+        $object = Objects::findOne($flat->object_id);
+        return $this->render('work_schedule', compact('floor','entrance', 'home', 'object', 'flat', 'id'));
+    }
+
+    public function actionNotes(){
+        $this->view->title = 'Этаж';
+        $this->view->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width,initial-scale=1.0,  shrink-to-fit=no']);
+
+        $id = Yii::$app->request->get('id');
+        $flat = Flat::findOne($id);
+        $floor = Floor::findOne($flat->floor_id);
+        $entrance = Entrance::findOne($flat->entrance_id);
+        $home = Home::findOne($flat->home_id);
+        $object = Objects::findOne($flat->object_id);
+        $notes = NotesLink::find()->where(['model_id' => $id, 'model' => 'flat'])->orderBy(['id' => SORT_DESC])->all();
+
+        $add_form = new AddNote($id, "flat");
+        $add_file = new AddFile($id, "notes");
+
+        if ($add_form->load(Yii::$app->request->post()) && $add_file->load(Yii::$app->request->post())) {
+            $add_file->file = UploadedFile::getInstances($add_file, 'file');
+            $add_file->add($add_form->add());
+            return $this->refresh();
+        }
+
+        return $this->render('notes', compact('floor','entrance', 'home', 'object', 'flat', 'id', 'notes', 'add_form', 'add_file'));
     }
 
 }

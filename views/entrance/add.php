@@ -39,10 +39,10 @@ use yii\widgets\ActiveForm;
                                     <use xlink:href="/web/img/svg/sprite.svg#calendar"></use>
                                 </svg>
                                 <span class="date-create">Указать дату начала</span>
-                                <?= $form->field($entrance, 'date_start')->hiddenInput(['class' => 'hidden_date-create'])->label(false); ?>
+                                <?= $form->field($entrance, 'date_start', ['errorOptions' => ['style' => 'display:none;']])->hiddenInput(['class' => 'hidden_date-create'])->label(false); ?>
                             </div>
                             <?php foreach ($entrance->getErrors('date_start') as $error): ?>
-                                <div class="custom-error-finish"><?= $error ?></div>
+                                <div class="custom-error-create"><?= $error ?></div>
                             <?php endforeach; ?>
                         </div>
                     </div>
@@ -54,7 +54,7 @@ use yii\widgets\ActiveForm;
                                     <use xlink:href="/web/img/svg/sprite.svg#calendar"></use>
                                 </svg>
                                 <span class="date-finish">Указать дату завершения</span>
-                                <?= $form->field($entrance, 'date_finish')->hiddenInput(['class' => 'hidden_date-finish'])->label(false); ?>
+                                <?= $form->field($entrance, 'date_finish', ['errorOptions' => ['style' => 'display:none;']])->hiddenInput(['class' => 'hidden_date-finish'])->label(false); ?>
                             </div>
                             <?php foreach ($entrance->getErrors('date_finish') as $error): ?>
                                 <div class="custom-error-finish"><?= $error ?></div>
@@ -76,16 +76,16 @@ use yii\widgets\ActiveForm;
         <div class="sCreateObject__footer">
             <div class="sCreateObject__footer-row">
                 <?= Html::submitButton('Сохранить изменения', ['class' => 'sCreateObject__btn btn btn-accent'])?>
-                <a class="sCreateObject__btn btn btn-light" href="<?= Yii::$app->request->referrer ?: Url::to(['/web/site/'])?>">Отмена</a>
+                <a class="sCreateObject__btn btn btn-light" href="/web/home/index/<?= $id ?>">Отмена</a>
             </div>
         </div>
         <?php ActiveForm::end(); ?>
         <!-- end sCreateObject-->
-        <div class="close-btn">
+        <a href="/web/home/index/<?= $id ?>" class="close-btn">
             <svg class="icon icon-close ">
                 <use xlink:href="/web/img/svg/sprite.svg#close"></use>
             </svg>
-        </div>
+        </a>
     </main>
 <?php
 $script = <<< JS

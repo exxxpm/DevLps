@@ -11,7 +11,6 @@ class Home extends ActiveRecord{
         return [
             [['name'], 'required', 'message' => 'Необходимо заполнить «Название».'],
             [['description'], 'trim'],
-            [['status_id'], 'integer'],
             [['date_start'], 'validateDates'],
             [['date_finish'], 'validateDates']
         ];
@@ -21,6 +20,10 @@ class Home extends ActiveRecord{
         if ($this->$attribute == null || strlen($this->$attribute) <= 1) {
             $this->addError($attribute, 'Необходимо заполнить данное поле.');
         }
+    }
+
+    public function getFloors(){
+        return $this->hasMany(Floor::class, ['home_id' => 'id'])->count();
     }
 
     public function getEntrances(){
