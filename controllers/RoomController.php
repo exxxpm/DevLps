@@ -1,17 +1,12 @@
 <?php
 namespace app\controllers;
 
+use Yii;
 use app\models\FileLink;
 use app\models\forms\AddFile;
 use app\models\forms\AddNote;
 use app\models\NotesLink;
-use Yii;
 use app\models\User;
-use app\models\Entrance;
-use app\models\Flat;
-use app\models\Floor;
-use app\models\Home;
-use app\models\Objects;
 use app\models\Room;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -78,14 +73,9 @@ class RoomController extends Controller{
 
         $id = Yii::$app->request->get('id');
         $room = Room::findOne($id);
-        $flat = Flat::findOne($room->flat_id);
-        $floor = Floor::findOne($room->floor_id);
-        $entrance = Entrance::findOne($room->entrance_id);
-        $home = Home::findOne($room->home_id);
-        $object = Objects::findOne($room->object_id);
         //$tasks = Room::find()->where(['home_id' => $flat->home_id, 'object_id' => $flat->object_id, 'entrance_id' => $flat->entrance_id, 'floor_id' => $flat->floor_id, 'flat_id' => $flat->floor_id])->all();
 
-        return $this->render('index', compact('floor','entrance', 'home', 'object', 'flat', 'room', 'id'));
+        return $this->render('index', compact('room', 'id'));
     }
 
     public function actionInfo(){
@@ -96,11 +86,6 @@ class RoomController extends Controller{
         $id = Yii::$app->request->get('id');
         $user = User::findOne(Yii::$app->user->id);
         $room = Room::findOne($id);
-        $flat = Flat::findOne($room->flat_id);
-        $floor = Floor::findOne($room->floor_id);
-        $entrance = Entrance::findOne($room->entrance_id);
-        $home = Home::findOne($room->home_id);
-        $object = Objects::findOne($room->object_id);
         $files = FileLink::find()->where(['model_id' => $id, 'model' => 'room'])->orderBy(['id' => SORT_DESC])->all();
 
         $add_file = new AddFile($id, "room");
@@ -111,7 +96,7 @@ class RoomController extends Controller{
             return $this->refresh();
         }
 
-        return $this->render('info', compact('floor','entrance', 'home', 'object', 'flat', 'room', 'id', 'user', 'add_file', 'files'));
+        return $this->render('info', compact('room', 'id', 'user', 'add_file', 'files'));
     }
 
     public function actionTasks(){
@@ -121,12 +106,7 @@ class RoomController extends Controller{
 
         $id = Yii::$app->request->get('id');
         $room = Room::findOne($id);
-        $flat = Flat::findOne($room->flat_id);
-        $floor = Floor::findOne($room->floor_id);
-        $entrance = Entrance::findOne($room->entrance_id);
-        $home = Home::findOne($room->home_id);
-        $object = Objects::findOne($room->object_id);
-        return $this->render('task', compact('floor','entrance', 'home', 'object', 'flat', 'room', 'id'));
+        return $this->render('task', compact( 'room', 'id'));
     }
 
     public function actionWorkSchedule(){
@@ -136,12 +116,7 @@ class RoomController extends Controller{
 
         $id = Yii::$app->request->get('id');
         $room = Room::findOne($id);
-        $flat = Flat::findOne($room->flat_id);
-        $floor = Floor::findOne($room->floor_id);
-        $entrance = Entrance::findOne($room->entrance_id);
-        $home = Home::findOne($room->home_id);
-        $object = Objects::findOne($room->object_id);
-        return $this->render('work_schedule', compact('floor','entrance', 'home', 'object', 'flat', 'room', 'id'));
+        return $this->render('work_schedule', compact( 'room', 'id'));
     }
 
     public function actionNotes(){
@@ -150,11 +125,6 @@ class RoomController extends Controller{
 
         $id = Yii::$app->request->get('id');
         $room = Room::findOne($id);
-        $flat = Flat::findOne($room->flat_id);
-        $floor = Floor::findOne($room->floor_id);
-        $entrance = Entrance::findOne($room->entrance_id);
-        $home = Home::findOne($room->home_id);
-        $object = Objects::findOne($room->object_id);
         $notes = NotesLink::find()->where(['model_id' => $id, 'model' => 'room'])->orderBy(['id' => SORT_DESC])->all();
 
         $add_form = new AddNote($id, "room");
@@ -166,6 +136,6 @@ class RoomController extends Controller{
             return $this->refresh();
         }
 
-        return $this->render('notes', compact('floor','entrance', 'home', 'object', 'flat', 'room', 'id', 'notes', 'add_form', 'add_file'));
+        return $this->render('notes', compact('room', 'id', 'notes', 'add_form', 'add_file'));
     }
 }

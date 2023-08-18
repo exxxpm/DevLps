@@ -1,5 +1,5 @@
 <div class="main-center-wrap">
-    <?= $this->render('_header', compact('home','object', 'id')); ?>
+    <?= $this->render('_header', compact('home', 'id')); ?>
     <main>
         <!-- start sMainInfo-->
         <div class="sMainInfo section" id="sMainInfo">

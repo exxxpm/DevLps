@@ -1,16 +1,13 @@
 <?php
 namespace app\controllers;
 
+use Yii;
 use app\models\FileLink;
 use app\models\forms\AddFile;
 use app\models\forms\AddNote;
 use app\models\NotesLink;
-use Yii;
 use app\models\User;
-use app\models\Entrance;
 use app\models\Flat;
-use app\models\Floor;
-use app\models\Home;
 use app\models\Room;
 use app\models\Objects;
 use yii\filters\VerbFilter;
@@ -79,13 +76,9 @@ class FlatController extends Controller{
 
         $id = Yii::$app->request->get('id');
         $flat = Flat::findOne($id);
-        $floor = Floor::findOne($flat->floor_id);
-        $entrance = Entrance::findOne($flat->entrance_id);
-        $home = Home::findOne($flat->home_id);
-        $object = Objects::findOne($flat->object_id);
         $rooms = Room::find()->where(['home_id' => $flat->home_id, 'object_id' => $flat->object_id, 'entrance_id' => $flat->entrance_id, 'floor_id' => $flat->floor_id, 'flat_id' => $id])->all();
 
-        return $this->render('index', compact('floor','entrance', 'home', 'object', 'flat', 'rooms', 'id'));
+        return $this->render('index', compact('flat', 'rooms', 'id'));
     }
 
     public function actionInfo(){
@@ -96,10 +89,6 @@ class FlatController extends Controller{
         $id = Yii::$app->request->get('id');
         $user = User::findOne(Yii::$app->user->id);
         $flat = Flat::findOne($id);
-        $floor = Floor::findOne($flat->floor_id);
-        $entrance = Entrance::findOne($flat->entrance_id);
-        $home = Home::findOne($flat->home_id);
-        $object = Objects::findOne($flat->object_id);
         $files = FileLink::find()->where(['model_id' => $id, 'model' => 'flat'])->orderBy(['id' => SORT_DESC])->all();
 
         $add_file = new AddFile($id, "flat");
@@ -110,7 +99,7 @@ class FlatController extends Controller{
             return $this->refresh();
         }
 
-        return $this->render('info', compact('floor','entrance', 'home', 'object', 'flat', 'id', 'user', 'add_file', 'files'));
+        return $this->render('info', compact( 'flat', 'id', 'user', 'add_file', 'files'));
     }
 
     public function actionTasks(){
@@ -120,11 +109,7 @@ class FlatController extends Controller{
 
         $id = Yii::$app->request->get('id');
         $flat = Flat::findOne($id);
-        $floor = Floor::findOne($flat->floor_id);
-        $entrance = Entrance::findOne($flat->entrance_id);
-        $home = Home::findOne($flat->home_id);
-        $object = Objects::findOne($flat->object_id);
-        return $this->render('task', compact('floor','entrance', 'home', 'object', 'flat', 'id'));
+        return $this->render('task', compact('flat', 'id'));
     }
 
     public function actionWorkSchedule(){
@@ -134,11 +119,7 @@ class FlatController extends Controller{
 
         $id = Yii::$app->request->get('id');
         $flat = Flat::findOne($id);
-        $floor = Floor::findOne($flat->floor_id);
-        $entrance = Entrance::findOne($flat->entrance_id);
-        $home = Home::findOne($flat->home_id);
-        $object = Objects::findOne($flat->object_id);
-        return $this->render('work_schedule', compact('floor','entrance', 'home', 'object', 'flat', 'id'));
+        return $this->render('work_schedule', compact( 'flat', 'id'));
     }
 
     public function actionNotes(){
@@ -147,10 +128,6 @@ class FlatController extends Controller{
 
         $id = Yii::$app->request->get('id');
         $flat = Flat::findOne($id);
-        $floor = Floor::findOne($flat->floor_id);
-        $entrance = Entrance::findOne($flat->entrance_id);
-        $home = Home::findOne($flat->home_id);
-        $object = Objects::findOne($flat->object_id);
         $notes = NotesLink::find()->where(['model_id' => $id, 'model' => 'flat'])->orderBy(['id' => SORT_DESC])->all();
 
         $add_form = new AddNote($id, "flat");
@@ -162,7 +139,7 @@ class FlatController extends Controller{
             return $this->refresh();
         }
 
-        return $this->render('notes', compact('floor','entrance', 'home', 'object', 'flat', 'id', 'notes', 'add_form', 'add_file'));
+        return $this->render('notes', compact('flat', 'id', 'notes', 'add_form', 'add_file'));
     }
 
 }

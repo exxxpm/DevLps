@@ -1,6 +1,6 @@
 <div class="main-center-wrap">
     <main>
-        <?= $this->render('_header', compact('room', 'flat', 'floor', 'entrance', 'home','object', 'id')); ?>
+        <?= $this->render('_header', compact('room', 'id')); ?>
         <!-- start sMainInfo-->
         <div class="sMainInfo section" id="sMainInfo">
             <div class="container-fluid">

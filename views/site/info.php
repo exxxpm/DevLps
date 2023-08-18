@@ -1,8 +1,4 @@
-<?php
-/** @var TYPE_NAME $object */
-
-use yii\widgets\ActiveForm;
-?>
+<?php use yii\widgets\ActiveForm;?>
 
 <div class="main-center-wrap">
     <main>

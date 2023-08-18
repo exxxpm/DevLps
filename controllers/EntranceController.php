@@ -8,8 +8,6 @@ use app\models\forms\AddNote;
 use app\models\NotesLink;
 use app\models\User;
 use app\models\Floor;
-use app\models\Home;
-use app\models\Objects;
 use app\models\Entrance;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -79,11 +77,9 @@ class EntranceController extends Controller{
 
         $id = Yii::$app->request->get('id');
         $entrance = Entrance::findOne($id);
-        $home = Home::findOne($entrance->home_id);
-        $object = Objects::findOne($entrance->object_id);
         $floors = Floor::find()->where(['home_id' => $entrance->home_id, 'object_id' => $entrance->object_id, 'entrance_id' => $id])->all();
 
-        return $this->render('index', compact('entrance','home', 'object', 'floors', 'id'));
+        return $this->render('index', compact('entrance', 'floors', 'id'));
     }
 
     public function actionInfo(){
@@ -94,8 +90,6 @@ class EntranceController extends Controller{
         $id = Yii::$app->request->get('id');
         $user = User::findOne(Yii::$app->user->id);
         $entrance = Entrance::findOne($id);
-        $home = Home::findOne($entrance->home_id);
-        $object = Objects::findOne($entrance->object_id);
         $files = FileLink::find()->where(['model_id' => $id, 'model' => 'entrance'])->orderBy(['id' => SORT_DESC])->all();
 
         $add_file = new AddFile($id, "entrance");
@@ -106,7 +100,7 @@ class EntranceController extends Controller{
             return $this->refresh();
         }
 
-        return $this->render('info', compact('entrance','home', 'object', 'id', 'user', 'add_file', 'files'));
+        return $this->render('info', compact('entrance', 'id', 'user', 'add_file', 'files'));
     }
 
     public function actionShahmatka(){
@@ -116,9 +110,7 @@ class EntranceController extends Controller{
 
         $id = Yii::$app->request->get('id');
         $entrance = Entrance::findOne($id);
-        $home = Home::findOne($entrance->home_id);
-        $object = Objects::findOne($entrance->object_id);
-        return $this->render('task', compact('entrance','home', 'object','id'));
+        return $this->render('task', compact('entrance','id'));
     }
 
     public function actionTasks(){
@@ -128,9 +120,7 @@ class EntranceController extends Controller{
 
         $id = Yii::$app->request->get('id');
         $entrance = Entrance::findOne($id);
-        $home = Home::findOne($entrance->home_id);
-        $object = Objects::findOne($entrance->object_id);
-        return $this->render('task', compact('entrance','home', 'object','id'));
+        return $this->render('task', compact('entrance','id'));
     }
 
     public function actionWorkSchedule(){
@@ -140,9 +130,7 @@ class EntranceController extends Controller{
 
         $id = Yii::$app->request->get('id');
         $entrance = Entrance::findOne($id);
-        $home = Home::findOne($entrance->home_id);
-        $object = Objects::findOne($entrance->object_id);
-        return $this->render('work_schedule', compact('entrance','home', 'object', 'id'));
+        return $this->render('work_schedule', compact('entrance', 'id'));
     }
 
     public function actionNotes(){
@@ -151,8 +139,6 @@ class EntranceController extends Controller{
 
         $id = Yii::$app->request->get('id');
         $entrance = Entrance::findOne($id);
-        $home = Home::findOne($entrance->home_id);
-        $object = Objects::findOne($entrance->object_id);
         $notes = NotesLink::find()->where(['model_id' => $id, 'model' => 'entrance'])->orderBy(['id' => SORT_DESC])->all();
 
         $add_form = new AddNote($id, "entrance");
@@ -164,6 +150,6 @@ class EntranceController extends Controller{
             return $this->refresh();
         }
 
-        return $this->render('notes', compact('entrance','home', 'object', 'id', 'notes', 'add_form', 'add_file'));
+        return $this->render('notes', compact('entrance', 'id', 'notes', 'add_form', 'add_file'));
     }
 }

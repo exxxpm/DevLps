@@ -1,7 +1,4 @@
-<?php
-/** @var TYPE_NAME $object */
-use \yii\widgets\ActiveForm;
-?>
+<?php use \yii\widgets\ActiveForm; ?>
 
 <div class="main-center-wrap">
     <main>
@@ -13,11 +10,7 @@ use \yii\widgets\ActiveForm;
                     <div class="toggle-block swiper freeMode-slider freeMode-slider--js">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
-                                <a class="toggle-block__btn btn btn-outline-light <? if (Yii::$app->controller->action->id == 'object') {
-                                    echo "active";
-                                } else {
-                                    echo "";
-                                } ?>" href="/web/site/object/<?= $id ?>">
+                                <a class="toggle-block__btn btn btn-outline-light <? if (Yii::$app->controller->action->id == 'object') {echo "active";} else {echo "";} ?>" href="/web/site/object/<?= $id ?>">
                                     <svg class="icon icon-list ">
                                         <use xlink:href="/web/img/svg/sprite.svg#list"></use>
                                     </svg>
@@ -25,11 +18,7 @@ use \yii\widgets\ActiveForm;
                                 </a>
                             </div>
                             <div class="swiper-slide">
-                                <a class="toggle-block__btn btn btn-outline-light <? if (Yii::$app->controller->action->id == 'task') {
-                                    echo "active";
-                                } else {
-                                    echo "";
-                                } ?>" href="/web/site/task/<?= $id ?>">
+                                <a class="toggle-block__btn btn btn-outline-light <? if (Yii::$app->controller->action->id == 'task') {echo "active";} else {echo "";} ?>" href="/web/site/task/<?= $id ?>">
                                     <svg class="icon icon-tasks ">
                                         <use xlink:href="/web/img/svg/sprite.svg#tasks"></use>
                                     </svg>
@@ -37,11 +26,7 @@ use \yii\widgets\ActiveForm;
                                 </a>
                             </div>
                             <div class="swiper-slide">
-                                <a class="toggle-block__btn btn btn-outline-light <? if (Yii::$app->controller->action->id == 'work-schedule') {
-                                    echo "active";
-                                } else {
-                                    echo "";
-                                } ?>" href="/web/site/work-schedule/<?= $id ?>">
+                                <a class="toggle-block__btn btn btn-outline-light <? if (Yii::$app->controller->action->id == 'work-schedule') {echo "active";} else {echo "";} ?>" href="/web/site/work-schedule/<?= $id ?>">
                                     <svg class="icon icon-gantt ">
                                         <use xlink:href="/web/img/svg/sprite.svg#gantt"></use>
                                     </svg>
@@ -49,11 +34,7 @@ use \yii\widgets\ActiveForm;
                                 </a>
                             </div>
                             <div class="swiper-slide">
-                                <a class="toggle-block__btn btn btn-outline-light <? if (Yii::$app->controller->action->id == 'info') {
-                                    echo "active";
-                                } else {
-                                    echo "";
-                                } ?>" href="/web/site/info/<?= $id ?>">
+                                <a class="toggle-block__btn btn btn-outline-light <? if (Yii::$app->controller->action->id == 'info') {echo "active";} else {echo "";} ?>" href="/web/site/info/<?= $id ?>">
                                     <svg class="icon icon-info ">
                                         <use xlink:href="/web/img/svg/sprite.svg#info"></use>
                                     </svg>
@@ -61,11 +42,7 @@ use \yii\widgets\ActiveForm;
                                 </a>
                             </div>
                             <div class="swiper-slide">
-                                <a class="toggle-block__btn btn btn-outline-light <? if (Yii::$app->controller->action->id == 'notes') {
-                                    echo "active";
-                                } else {
-                                    echo "";
-                                } ?>" href="/web/site/notes/<?= $id ?>">
+                                <a class="toggle-block__btn btn btn-outline-light <? if (Yii::$app->controller->action->id == 'notes') {echo "active";} else {echo "";} ?>" href="/web/site/notes/<?= $id ?>">
                                     <svg class="icon icon-pen ">
                                         <use xlink:href="/web/img/svg/sprite.svg#pen"></use>
                                     </svg>

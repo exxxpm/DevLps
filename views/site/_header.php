@@ -11,10 +11,7 @@ use app\widgets\SwiperBreadcrumbs;
     <div class="container-fluid">
         <div class="page-head__row row align-items-center">
             <div class="col">
-                <?
-                $breadcrumbsLinks = [['label' => $object->name],];
-                echo SwiperBreadcrumbs::widget(['links' => $breadcrumbsLinks]);
-                ?>
+                <? echo SwiperBreadcrumbs::widget(['model_name' => 'Object', 'model_id' => $id]); ?>
             </div>
             <div class="col-12 d-none d-md-block m-0 p-0 order-md-3"></div>
             <div class="page-head__col col-md-auto order-md-2 d-none d-md-block">
@@ -132,12 +129,29 @@ use app\widgets\SwiperBreadcrumbs;
                             <div class="details-with-toggle__stats-row row">
                                 <div class="details-with-toggle__col col-md-3 col-xl">
                                     <div class="details-with-toggle__item"><span>Срок</span>
-                                        <p><?= floor(abs($object->date_finish - $object->date_start) / 86400) ?> дней</p>
+                                        <?
+                                            $full_build_day = floor(abs($object->date_finish - $object->date_start) / 86400);
+                                        ?>
+                                        <p><?= $full_build_day ?> дней</p>
                                     </div>
                                 </div>
                                 <div class="details-with-toggle__col col-md-3 col-xl">
                                     <div class="details-with-toggle__item"><span>До конца</span>
-                                        <p><?= floor(abs(time() - $object->date_finish) / 86400) ?> дней</p>
+                                        <?
+                                            $ost_build_day =  floor(($object->date_finish - time()) / 86400);
+                                            if($ost_build_day < 0){
+                                                ?>
+                                                    <p class="text-danger">
+                                                        <svg class="icon icon-warning ">
+                                                            <use xlink:href="/web/img/svg/sprite.svg#warning"></use>
+                                                        </svg>
+                                                       <?= $ost_build_day ?> дней
+                                                    </p>
+                                                <?
+                                            }else{
+                                                ?><p><?= $ost_build_day ?> дней</p><?
+                                            }
+                                        ?>
                                     </div>
                                 </div>
                                 <div class="details-with-toggle__col col-md-3 col-xl">

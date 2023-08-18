@@ -8,7 +8,6 @@ use app\models\forms\AddNote;
 use app\models\NotesLink;
 use app\models\User;
 use app\models\Entrance;
-use app\models\Objects;
 use yii\web\Controller;
 use \app\models\Home;
 use yii\filters\AccessControl;
@@ -79,10 +78,9 @@ class HomeController extends Controller{
 
         $id = Yii::$app->request->get('id');
         $home = Home::findOne($id);
-        $object = Objects::findOne($home->object_id);
         $entrances = Entrance::find()->where(['home_id' => $home->id, 'object_id' => $home->object_id])->all();
 
-        return $this->render('index', compact('home', 'object', 'entrances', 'id'));
+        return $this->render('index', compact('home', 'entrances', 'id'));
     }
 
     public function actionInfo(){
@@ -93,7 +91,6 @@ class HomeController extends Controller{
         $id = Yii::$app->request->get('id');
         $user = User::findOne(Yii::$app->user->id);
         $home = Home::findOne($id);
-        $object = Objects::findOne($home->object_id);
         $files = FileLink::find()->where(['model_id' => $id, 'model' => 'home'])->orderBy(['id' => SORT_DESC])->all();
 
         $add_file = new AddFile($id, "home");
@@ -104,7 +101,7 @@ class HomeController extends Controller{
             return $this->refresh();
         }
 
-        return $this->render('info', compact('home', 'object', 'id', 'user', 'add_file', 'files'));
+        return $this->render('info', compact('home', 'id', 'user', 'add_file', 'files'));
     }
 
     public function actionTasks(){
@@ -114,8 +111,7 @@ class HomeController extends Controller{
 
         $id = Yii::$app->request->get('id');
         $home = Home::findOne($id);
-        $object = Objects::findOne($home->object_id);
-        return $this->render('task', compact('home', 'object','id'));
+        return $this->render('task', compact('home','id'));
     }
 
     public function actionWorkSchedule(){
@@ -125,8 +121,7 @@ class HomeController extends Controller{
 
         $id = Yii::$app->request->get('id');
         $home = Home::findOne($id);
-        $object = Objects::findOne($home->object_id);
-        return $this->render('work_schedule', compact('home', 'object', 'id'));
+        return $this->render('work_schedule', compact('home', 'id'));
     }
 
     public function actionNotes(){
@@ -135,7 +130,6 @@ class HomeController extends Controller{
 
         $id = Yii::$app->request->get('id');
         $home = Home::findOne($id);
-        $object = Objects::findOne($home->object_id);
         $notes = NotesLink::find()->where(['model_id' => $id, 'model' => 'home'])->orderBy(['id' => SORT_DESC])->all();
 
         $add_form = new AddNote($id, "home");
@@ -147,7 +141,7 @@ class HomeController extends Controller{
             return $this->refresh();
         }
 
-        return $this->render('notes', compact('home', 'object', 'id', 'notes', 'add_form', 'add_file'));
+        return $this->render('notes', compact('home', 'id', 'notes', 'add_form', 'add_file'));
     }
 
 }
