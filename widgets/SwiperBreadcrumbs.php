@@ -67,7 +67,7 @@ class SwiperBreadcrumbs extends Widget{
                 'itemtype' => 'http://schema.org/BreadcrumbList',
             ],
             'homeLink' => [
-                'label' => 'Обекты',
+                'label' => 'Объекты',
                 'url' => '/web/site/',
                 'template' => "<li class='breadcrumb-item' itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>{link}<meta itemprop='position' content='{position}' /></li>\n",
             ],

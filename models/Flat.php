@@ -31,16 +31,11 @@ class Flat extends ActiveRecord{
         $start_date_transformed = strtr($this->date_start , $months);
         $finish_date_transformed = strtr($this->date_finish, $months);
 
-        $new_date_start = (DateTime::createFromFormat('d M y', $start_date_transformed) !== false) ? DateTime::createFromFormat('d M y', $start_date_transformed)->getTimestamp() : false;
-        $new_date_finish = (DateTime::createFromFormat('d M y', $finish_date_transformed) !== false) ? DateTime::createFromFormat('d M y', $finish_date_transformed)->getTimestamp() : false;
-
-        $arr_dates = [$new_date_start, $new_date_finish];
-        return $arr_dates;
+        $this->date_start = (DateTime::createFromFormat('d M y', $start_date_transformed) !== false) ? DateTime::createFromFormat('d M y', $start_date_transformed)->getTimestamp() : false;
+        $this->date_finish = (DateTime::createFromFormat('d M y', $finish_date_transformed) !== false) ? DateTime::createFromFormat('d M y', $finish_date_transformed)->getTimestamp() : false;
     }
     public function add_flat($id, $floor) {
-        $dates = $this->get_date();
-        $this->date_start = $dates[0];
-        $this->date_finish = $dates[1];
+        $this->get_date();
 
         $current_time = time();
         $this->create = $current_time;
@@ -56,14 +51,9 @@ class Flat extends ActiveRecord{
     }
 
     public function edit_flat() {
-        $dates = $this->get_date();
-        $this->date_start = $dates[0];
-        $this->date_finish = $dates[1];
+        $this->get_date();
 
-        $current_time = time();
-        $this->create = $current_time;
-        $this->last_update = $current_time;
-
+        $this->last_update = time();
         return $this->save();
     }
 
