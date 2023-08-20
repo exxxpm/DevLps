@@ -5,6 +5,7 @@ use Yii;
 use app\models\User;
 use app\models\Flat;
 use app\models\Floor;
+use app\models\Entrance;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\filters\AccessControl;

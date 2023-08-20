@@ -7,6 +7,7 @@ use app\models\forms\AddFile;
 use app\models\forms\AddNote;
 use app\models\NotesLink;
 use app\models\User;
+use app\models\Flat;
 use app\models\Room;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;

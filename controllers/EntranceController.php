@@ -8,6 +8,7 @@ use app\models\forms\AddNote;
 use app\models\NotesLink;
 use app\models\User;
 use app\models\Floor;
+use app\models\Home;
 use app\models\Entrance;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
