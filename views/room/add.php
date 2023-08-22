@@ -26,6 +26,16 @@ use yii\widgets\ActiveForm;
                             </div>
                             <!-- +e.input-wrap-->
                         </div>
+                        <a class="col-12" href="/web/react-planner/demo/dist/index.html">
+                            <div class="form-wrap__create-room">
+                                <div class="form-wrap__icon-wrap">
+                                    <svg class="icon icon-plus ">
+                                        <use xlink:href="/web/img/svg/sprite.svg#plus"></use>
+                                    </svg>
+                                </div>
+                                Указать замеры помещения
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
