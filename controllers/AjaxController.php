@@ -91,32 +91,8 @@ class AjaxController extends Controller{
     }
 
     public function actionSaveJson(){
-        Yii::$app->response->format = Response::FORMAT_JSON;
         $jsonString = Yii::$app->request->post('json');
-
-        if ($jsonString) {
-            $json = json_decode($jsonString, true);
-
-            if ($json) {
-                $uploadPath = 'uploads/' . date('Y') . '/' . date('m');
-                if (!is_dir($uploadPath)) {
-                    if (!mkdir($uploadPath, 0777, true) && !is_dir($uploadPath)) {
-                        return ['success' => false, 'message' => 'Failed to create directory.'];
-                    }
-                }
-
-                $randomFileName = Yii::$app->security->generateRandomString(8);
-                $filePath = $uploadPath . '/' . $randomFileName . '.json';
-
-                if (file_put_contents($filePath, json_encode($json, JSON_PRETTY_PRINT))) {
-                    return ['success' => true, 'message' => 'JSON saved successfully.'];
-                } else {
-                    return ['success' => false, 'message' => 'Failed to save JSON to file.'];
-                }
-            }
-        }
-
-        return ['success' => false, 'message' => $jsonString];
+        return ['message' => $jsonString];
     }
 
 }
