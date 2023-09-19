@@ -30,7 +30,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/ico', 'href' => Yii::g
                     <div class="aside-wrap__nav">
                         <ul>
                             <li>
-                                <a class="active" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Объекты">
+                                <a class="active" href="/web/site/index" data-bs-toggle="tooltip" data-bs-placement="right" title="Объекты">
                                     <svg class="icon icon-objects ">
                                         <use xlink:href="/web/img/svg/sprite.svg#objects"></use>
                                     </svg>

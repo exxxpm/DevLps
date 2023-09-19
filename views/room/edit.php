@@ -27,6 +27,25 @@ $months = ['Янв' => 'Jan', 'Фев' => 'Feb', 'Март' => 'Mar', 'Апр' =
                             </div>
                             <!-- +e.input-wrap-->
                         </div>
+                        <?
+                            if(empty($room->plan)){
+                                ?>
+                                    <a class="col-12" href="/web/room/plan/<?= $id?>">
+                                        <div class="form-wrap__create-room">
+                                            <div class="form-wrap__icon-wrap">
+                                                <svg class="icon icon-plus ">
+                                                    <use xlink:href="/web/img/svg/sprite.svg#plus"></use>
+                                                </svg>
+                                            </div>
+                                            Указать замеры помещения
+                                        </div>
+                                    </a>
+                                <?
+                                $form->field($room, 'plan')->hiddenInput(['class' => 'hidden_plan-path'])->label(false);
+                            }else{
+
+                            }
+                        ?>
                     </div>
                 </div>
             </div>

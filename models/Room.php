@@ -45,8 +45,9 @@ class Room extends ActiveRecord{
         $this->home_id = $flat->home_id;
         $this->object_id = $flat->object_id;
         $this->author_id =  Yii::$app->user->id;
+        $this->save();
 
-        return $this->save();
+        return $this->id;
     }
 
     public function edit_room() {

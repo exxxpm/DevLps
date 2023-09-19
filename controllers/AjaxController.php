@@ -14,6 +14,14 @@ use app\models\Room;
 
 
 class AjaxController extends Controller{
+    public function beforeAction($action){
+        if ($action->id === 'save-json') {
+            $this->enableCsrfValidation = false;
+        }
+
+        return parent::beforeAction($action);
+    }
+
     public function actionGenerator(){
         $model = Yii::$app->request->post('model');
         $id = Yii::$app->request->post('id');
@@ -85,14 +93,28 @@ class AjaxController extends Controller{
         return 'Error';
     }
 
-    public function actionInterpreter(){
-        $json = Yii::$app->request->post('data_json');
-        return json_encode(['data' => $json,]);
-    }
-
     public function actionSaveJson(){
-        $jsonString = Yii::$app->request->post('json');
-        return ['message' => $jsonString];
+        $json_data = Yii::$app->request->post('json');
+        $id = Yii::$app->request->post('id');
+
+        $uploadPath = 'uploads/' . date('Y') . '/' . date('m');
+        if (!is_dir($uploadPath)) {
+            if (!mkdir($uploadPath, 0777, true) && !is_dir($uploadPath)) {
+                return false;
+            }
+        }
+
+        $randomFileName = Yii::$app->security->generateRandomString(8);
+        $filePath = $uploadPath . '/' . $randomFileName . '.json';
+
+        if (file_put_contents($filePath, json_encode($json_data, JSON_PRETTY_PRINT))) {
+            $room = Room::findOne($id);
+            $room->plan = $filePath;
+            $room->save();
+            return $filePath;
+        } else {
+            return false;
+        }
     }
 
 }

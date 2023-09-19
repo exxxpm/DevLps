@@ -43,8 +43,8 @@ class RoomController extends Controller{
         $flat = Flat::findOne($id);
 
         if ($room->load(Yii::$app->request->post())) {
-            if ($room->validate() && $room->add_room($id, $flat)) {
-                return $this->refresh();
+            if ($room->validate() && $id_room = $room->add_room($id, $flat)) {
+                return $this->redirect(['/room/edit/', 'id' => $id_room]);
             }
         }
 
@@ -138,5 +138,15 @@ class RoomController extends Controller{
         }
 
         return $this->render('notes', compact('room', 'id', 'notes', 'add_form', 'add_file'));
+    }
+
+    public function actionPlan(){
+        $this->view->title = 'Создание чертежа';
+        $this->view->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width,initial-scale=1.0,  shrink-to-fit=no']);
+        $this->layout = 'plan_loyout';
+
+        $id = Yii::$app->request->get('id');
+
+        return $this->render('plan', compact('id'));
     }
 }

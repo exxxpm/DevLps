@@ -65,8 +65,6 @@ class Home extends ActiveRecord{
         $this->get_date();
 
         $this->last_update = time();
-        $this->object_id = $id;
-
         return $this->save();
     }
 

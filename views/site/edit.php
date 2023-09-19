@@ -125,12 +125,12 @@ $months = ['Янв' => 'Jan', 'Фев' => 'Feb', 'Март' => 'Mar', 'Апр' =
         <div class="sCreateObject__footer">
             <div class="sCreateObject__footer-row">
                 <?= Html::submitButton('Сохранить изменения', ['class' => 'sCreateObject__btn btn btn-accent'])?>
-                <a class="sCreateObject__btn btn btn-light" href="/web/site/index/<?= $id ?>">Отмена</a>
+                <a class="sCreateObject__btn btn btn-light" href="/web/site/object/<?= $id ?>">Отмена</a>
             </div>
         </div>
     <?php ActiveForm::end(); ?>
     <!-- end sCreateObject-->
-    <a href="/web/site/index/<?= $id ?>" class="close-btn">
+    <a href="/web/site/object/<?= $id ?>" class="close-btn">
         <svg class="icon icon-close ">
             <use xlink:href="/web/img/svg/sprite.svg#close"></use>
         </svg>
