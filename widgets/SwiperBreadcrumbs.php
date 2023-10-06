@@ -43,6 +43,10 @@ class SwiperBreadcrumbs extends Widget{
                 $room = Room::findOne($model_id);
                 $flat_links = $this->generateLinks('Flat', $room->flat_id);
                 return $this->generateLinksWithLabel($room->name, null, $flat_links);
+            case 'User':
+                $room = Room::findOne($model_id);
+                $flat_links = $this->generateLinks('Flat', $room->flat_id);
+                return $this->generateLinksWithLabel($room->name, null, $flat_links);
             default:
                 return [];
         }

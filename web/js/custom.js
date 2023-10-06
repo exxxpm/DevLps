@@ -35,7 +35,7 @@ $(document).ready(function() {
 
         if ($parentTR.hasClass("active")) {
             $parentTR.removeClass("active");
-            $innerTR.find('td > div').slideToggle('slow', function() {
+            $innerTR.find('td > div').slideToggle(350, function() {
                 $innerTR.remove();
             });
         } else {
@@ -44,7 +44,7 @@ $(document).ready(function() {
 
 
             if ($innerTR.length > 0) {
-                $innerTR.find('td > div').slideToggle('slow', function() {
+                $innerTR.find('td > div').slideToggle(350, function() {
                     $innerTR.remove();
                 });
             }
@@ -139,10 +139,14 @@ $(document).ready(function() {
         }
     });
 
-    $(document).ready(function() {
-        $('#upload-form').on('change', function() {
-            $('#upload-form').submit();
-        });
+    // $(document).ready(function() {
+    //     $('#upload-form').on('change', function() {
+    //         $('#upload-form').submit();
+    //     });
+    // });
+
+    $('#upload-form').on('change', function() {
+        $('#upload-form').submit();
     });
 
     $('body').on('click', '.file-item__btn-delete', function() {
@@ -156,5 +160,24 @@ $(document).ready(function() {
                 location.reload();
             }
         });
+    });
+
+    $('body').on('click', '.upload-avatar__delete-photo', function() {
+        let id = $(this).data("id");
+
+        $('#user_img').attr('src', '/web/img/svg/user.svg');
+        $('.img-wrap-center img[class="object-fit-js"]').attr('src', '/web/img/svg/user.svg');
+
+        $.ajax({
+            url: '/web/ajax/delete-user-img',
+            data: { 'id': id },
+            type: 'POST',
+            success: function(data) {
+            }
+        });
+    });
+
+    $('body').on('change', '#view-user', function() {
+        $('#view-user').submit();
     });
 });

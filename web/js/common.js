@@ -4,6 +4,7 @@ const JSCCommon = {
 		const link = '.btn-modal-js';
 		Fancybox.bind(link, {
 			arrows: false,
+			// // infobar: false,
 			touch: false,
 			trapFocus: false,
 			placeFocusBack: false,
@@ -94,6 +95,47 @@ const JSCCommon = {
 
 	// tabs  .
 	tabscostume(tab) {
+		// const tabs = document.querySelectorAll(tab);
+		// const indexOf = element => Array.from(element.parentNode.children).indexOf(element);
+		// tabs.forEach(element => {
+		// 	let tabs = element;
+		// 	const tabsCaption = tabs.querySelector(".tabs__caption");
+		// 	const tabsBtn = tabsCaption.querySelectorAll(".tabs__btn");
+		// 	const tabsWrap = tabs.querySelector(".tabs__wrap");
+		// 	const tabsContent = tabsWrap.querySelectorAll(".tabs__content");
+		// 	const random = Math.trunc(Math.random() * 1000);
+		// 	tabsBtn.forEach((el, index) => {
+		// 		const data = `tab-content-${random}-${index}`;
+		// 		el.dataset.tabBtn = data;
+		// 		const content = tabsContent[index];
+		// 		content.dataset.tabContent = data;
+		// 		if (!content.dataset.tabContent == data) return;
+
+		// 		const active = content.classList.contains('active') ? 'active' : '';
+		// 		// console.log(el.innerHTML);
+		// 		content.insertAdjacentHTML("beforebegin", `<div class="tabs__btn-accordion  btn btn-primary  mb-1 ${active}" data-tab-btn="${data}">${el.innerHTML}</div>`)
+		// 	})
+
+
+		// 	tabs.addEventListener('click', function (element) {
+		// 		const btn = element.target.closest(`[data-tab-btn]:not(.active)`);
+		// 		if (!btn) return;
+		// 		const data = btn.dataset.tabBtn;
+		// 		const tabsAllBtn = this.querySelectorAll(`[data-tab-btn`);
+		// 		const content = this.querySelectorAll(`[data-tab-content]`);
+		// 		tabsAllBtn.forEach(element => {
+		// 			element.dataset.tabBtn == data
+		// 				? element.classList.add('active')
+		// 				: element.classList.remove('active')
+		// 		});
+		// 		content.forEach(element => {
+		// 			element.dataset.tabContent == data
+		// 				? (element.classList.add('active'), element.previousSibling.classList.add('active'))
+		// 				: element.classList.remove('active')
+		// 		});
+		// 	})
+		// })
+
 		$('.' + tab + '__caption').on('click', '.' + tab + '__btn:not(.active)', function (e) {
 			$(this)
 				.addClass('active').siblings().removeClass('active')
@@ -141,13 +183,48 @@ const JSCCommon = {
 
 				Fancybox.close();
 				Fancybox.show([{ src: "#modal-thanks", type: "inline" }]);
+				// window.location.replace("/thanks.html");
 				setTimeout(function () {
 					// Done Functions
 					th.trigger("reset");
+					// $.magnificPopup.close();
+					// ym(53383120, 'reachGoal', 'zakaz');
+					// yaCounter55828534.reachGoal('zakaz');
 				}, 4000);
 			}).fail(function () { });
 
 		});
+
+
+		// async function submitForm(event) {
+		// 	event.preventDefault(); // отключаем перезагрузку/перенаправление страницы
+		// 	try {
+		// 		// Формируем запрос
+		// 		const response = await fetch(event.target.action, {
+		// 			method: 'POST',
+		// 			body: new FormData(event.target)
+		// 		});
+		// 		// проверяем, что ответ есть
+		// 		if (!response.ok) throw (`Ошибка при обращении к серверу: ${response.status}`);
+		// 		// проверяем, что ответ действительно JSON
+		// 		const contentType = response.headers.get('content-type');
+		// 		if (!contentType || !contentType.includes('application/json')) {
+		// 			throw ('Ошибка обработки. Ответ не JSON');
+		// 		}
+		// 		// обрабатываем запрос
+		// 		const json = await response.json();
+		// 		if (json.result === "success") {
+		// 			// в случае успеха
+		// 			alert(json.info);
+		// 		} else {
+		// 			// в случае ошибки
+		// 			console.log(json);
+		// 			throw (json.info);
+		// 		}
+		// 	} catch (error) { // обработка ошибки
+		// 		alert(error);
+		// 	}
+		// }
 	},
 	heightwindow() {
 		// First we get the viewport height and we multiple it by 1% to get a value for a vh unit
@@ -210,6 +287,33 @@ const JSCCommon = {
 					$(this).toggleClass('active');
 				});
 		});
+		// let parents = document.querySelectorAll('.dd-group-js');
+		// for (let parent of parents) {
+		// 	if (parent) {
+		// 		// childHeads, kind of funny))
+		// 		let ChildHeads = parent.querySelectorAll('.dd-head-js:not(.disabled)');
+		// 		$(ChildHeads).click(function () {
+		// 			let clickedHead = this;
+
+		// 			$(ChildHeads).each(function () {
+		// 				if (this === clickedHead) {
+		// 					//parent element gain toggle class, style head change via parent
+		// 					$(this.parentElement).toggleClass('active');
+		// 					$(this.parentElement).find('.dd-content-js').slideToggle(function () {
+		// 						$(this).toggleClass('active');
+		// 					});
+		// 				}
+		// 				else {
+		// 					$(this.parentElement).removeClass('active');
+		// 					$(this.parentElement).find('.dd-content-js').slideUp(function () {
+		// 						$(this).removeClass('active');
+		// 					});
+		// 				}
+		// 			});
+
+		// 		});
+		// 	}
+		// }
 	},
 	imgToSVG() {
 		const convertImages = (query, callback) => {
@@ -253,10 +357,13 @@ function eventHandler() {
 	JSCCommon.tabscostume('tabs');
 	JSCCommon.mobileMenu();
 	JSCCommon.inputMask();
+	// JSCCommon.sendForm();
 	JSCCommon.heightwindow();
 	JSCCommon.makeDDGroup();
 	JSCCommon.disabledBtn();
 	JSCCommon.imgToSVG();
+	// JSCCommon.toggleShow(".catalog-block__toggle--desctop", '.catalog-block__dropdown');
+	// JSCCommon.animateScroll();
 
 	function inputFile() {
 		let uploadField = document.querySelectorAll('.upload-field');
@@ -314,6 +421,9 @@ function eventHandler() {
 			el: ' .swiper-pagination',
 			type: 'bullets',
 			clickable: true,
+			// renderBullet: function (index, className) {
+			// 	return '<span class="' + className + '">' + (index + 1) + '</span>';
+			// }
 		},
 	}
 
@@ -323,16 +433,8 @@ function eventHandler() {
 		watchOverflow: true,
 	});
 
-	const swiper4 = new Swiper('.sBanners__slider--js', {
-		// slidesPerView: 5,
-		...defaultSl,
+	const swiper4 = new Swiper('.default-slider-js', {
 		slidesPerView: 'auto',
-		freeMode: true,
-		loopFillGroupWithBlank: true,
-		touchRatio: 0.2,
-		slideToClickedSlide: true,
-		freeModeMomentum: true,
-
 	});
 
 	// modal window
@@ -345,6 +447,13 @@ function eventHandler() {
 	$('[data-bs-toggle="tooltip2"]').tooltip({
 		animation: true,
 		offset: [0, 5],
+	});
+
+	$('[data-bs-toggle="tooltip3"]').tooltip({
+		animation: true,
+		offset: [0, 5],
+		container: '.main-table__more-info',
+		placement: 'top',
 	});
 
 	let select2Wrappers = document.querySelectorAll('.basic-select--js');
@@ -404,6 +513,8 @@ function eventHandler() {
 		"cancelLabel": "Сбросить",
 		"fromLabel": "с",
 		"toLabel": "по",
+		// "customRangeLabel": "Custom",
+		// "weekLabel": "W",
 		"daysOfWeek": [
 			"Вс",
 			"Пн",
@@ -442,7 +553,7 @@ function eventHandler() {
 		//do something, like clearing an input
 		$('.dateRange-js').val('');
 	});
-	
+
 
 	$('.dateSingle-js').daterangepicker({
 		singleDatePicker: true,
@@ -462,6 +573,62 @@ function eventHandler() {
 	let tableCheckboxs = document.querySelectorAll('.main-table__title .custom-input input');
 	let bottomControlBar = document.querySelector('.bottom-control-bar');
 	let count = 0;
+
+	let uploadavatar = document.querySelector('.upload-avatar');
+	if (uploadavatar){
+		let inputFile = uploadavatar.querySelector('.input-upload');
+		let img = uploadavatar.querySelector('.img-wrap-center img');
+		inputFile.addEventListener('change', () => {
+			var reader = new FileReader();
+			reader.onload = function(){ img.src = reader.result;}
+			reader.readAsDataURL(event.target.files[0]);
+
+			inputFile.files[0].name.length > 0 ? uploadavatar.classList.add('active') : uploadavatar.classList.remove('active');
+		});
+		uploadavatar.querySelector('.upload-avatar__delete-photo').addEventListener('click', () => {
+			img.src = '';
+			uploadavatar.classList.remove('active');
+		})
+	}
+
+	let passwordInputs = document.querySelectorAll('.form-wrap__input[type="password"]');
+	if (passwordInputs.length > 0) {
+		for (const passwordInput of passwordInputs) {
+			let passwordWrap = passwordInput.closest('.form-wrap__input-wrap');
+			passwordWrap.querySelector('.form-wrap__pass-eye').addEventListener('click', () => {
+				passwordWrap.querySelector('.form-wrap__pass-eye').classList.toggle('active');
+				if (passwordWrap.querySelector('.form-wrap__input').getAttribute('type') == 'password') {
+					passwordWrap.querySelector('.form-wrap__input').setAttribute('type', 'text');
+				} else {
+					passwordWrap.querySelector('.form-wrap__input').setAttribute('type', 'password');
+				}
+			})
+		}
+	};
+
+	let chessTable = document.querySelector('.sMainInfo__chess-table-wrap')
+	let setWidth = () => {
+		let index = 0;
+		let chessListArray = chessTable.querySelectorAll('ul');
+		let elemWidth = chessTable.querySelector('ul li').offsetWidth; // -7.286
+		console.log(elemWidth);
+		for (let i = 0; i < chessListArray.length; i++) {
+			if (chessListArray[i].querySelectorAll('li').length > index) {
+				index = chessListArray[i].querySelectorAll('li').length;
+			}
+		}
+		for (let i = 0; i < chessListArray.length; i++) {
+			chessListArray[i].style.width = index * elemWidth + 'px';
+		}
+	};
+
+	if (chessTable) {
+		setWidth()
+		window.addEventListener('resize', () => {
+			setWidth()
+		}, { passive: true });
+	}
+
 };
 if (document.readyState !== 'loading') {
 	eventHandler();

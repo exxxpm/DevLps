@@ -1,6 +1,7 @@
 <?php
 namespace app\controllers;
 
+use app\models\Flat;
 use Yii;
 use app\models\FileLink;
 use app\models\forms\AddFile;
@@ -111,7 +112,8 @@ class EntranceController extends Controller{
 
         $id = Yii::$app->request->get('id');
         $entrance = Entrance::findOne($id);
-        return $this->render('task', compact('entrance','id'));
+        $floors = Floor::find()->where(['home_id' => $entrance->home_id, 'object_id' => $entrance->object_id, 'entrance_id' => $id])->all();
+        return $this->render('shahmatka', compact('entrance', 'floors', 'id'));
     }
 
     public function actionTasks(){

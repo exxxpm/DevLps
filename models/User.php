@@ -5,6 +5,7 @@ use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\helpers\FileHelper;
 use yii\web\IdentityInterface;
 
 class User extends ActiveRecord implements IdentityInterface{
@@ -69,6 +70,29 @@ class User extends ActiveRecord implements IdentityInterface{
 
     public function getId(){
         return $this->getPrimaryKey();
+    }
+
+    public function getRole(){
+        $auth = Yii::$app->authManager;
+
+        $role_list = [
+            'admin' => 'Администратор',
+            'manager' => 'Менеджер',
+        ];
+
+        $roles = $auth->getRolesByUser($this->getId());
+        return $role_list[reset($roles)->name];
+    }
+
+    public function getUsername($username){
+        $words = explode(" ", $username);
+        if (count($words) >= 3) {
+            $shortened_first_name = mb_substr($words[1], 0, 1, 'UTF-8') . ".";
+            $shortened_middle_name = mb_substr($words[2], 0, 1, 'UTF-8') . ".";
+            return $words[0] . " " . $shortened_first_name . " " . $shortened_middle_name;
+        } else {
+            return $username;
+        }
     }
 
     public function getAuthKey(){

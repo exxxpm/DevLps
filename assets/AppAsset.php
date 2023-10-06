@@ -13,12 +13,14 @@ class AppAsset extends AssetBundle{
         'css/main.min.css',
     ];
     public $js = [
+        //'libs/libs/jquery/jquery.min.js',
         'libs/@fancyapps/ui/fancybox/fancybox.umd.js',
         'libs/swiper/swiper-bundle.min.js',
         'libs/inputmask/inputmask.min.js',
         'libs/select2/js/select2.min.js',
         'libs/daterangepicker/moment.min.js',
         'libs/daterangepicker/daterangepicker.js',
+        'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js',
         'js/common.js',
         'js/custom.js',
     ];

@@ -3,7 +3,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\forms\LoginForm;
-use app\models\forms\ResetForm;
+use app\models\forms\EditUser;
 use app\models\forms\RequestForm;
 use yii\web\Controller;
 use yii\filters\AccessControl;

@@ -7,6 +7,7 @@ use yii\web\Controller;
 use app\models\Entrance;
 use app\models\Floor;
 use app\models\FileLink;
+use app\models\File;
 use app\models\Flat;
 use app\models\Home;
 use app\models\Objects;
@@ -44,6 +45,19 @@ class AjaxController extends Controller{
             if ($file) {
                 $file->delete();
             } else {}
+        } else {}
+    }
+
+    public function actionDeleteUserImg(){
+        $file_id = Yii::$app->request->post('id');
+        $file = File::findOne(['id' => $file_id]);
+
+        if ($file) {
+            $file_path = $file->path;
+            $file->delete();
+            if (file_exists($file_path)) {
+                unlink($file_path);
+            }
         } else {}
     }
 

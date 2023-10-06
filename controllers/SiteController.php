@@ -1,8 +1,9 @@
 <?php
 namespace app\controllers;
 
-use app\models\FileLink;
 use Yii;
+use app\models\FileLink;
+use app\models\forms\AddUser;
 use app\models\User;
 use app\models\forms\AddFile;
 use app\models\forms\AddNote;
@@ -176,3 +177,5 @@ class SiteController extends Controller{
         return $this->render('edit', compact('object',  'id', 'user'));
     }
 }
+
+

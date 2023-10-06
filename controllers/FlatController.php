@@ -83,7 +83,7 @@ class FlatController extends Controller{
     }
 
     public function actionInfo(){
-        $this->view->title = 'Этаж';
+        $this->view->title = 'Квартира';
         $this->view->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width,initial-scale=1.0,  shrink-to-fit=no']);
 
 
@@ -103,8 +103,21 @@ class FlatController extends Controller{
         return $this->render('info', compact( 'flat', 'id', 'user', 'add_file', 'files'));
     }
 
+    public function actionDetailInfo(){
+        $this->view->title = 'Квартира';
+        $this->view->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width,initial-scale=1.0,  shrink-to-fit=no']);
+        $this->layout = 'detail_info';
+
+        $id = Yii::$app->request->get('id');
+        $user = User::findOne(Yii::$app->user->id);
+        $flat = Flat::findOne($id);
+        $rooms = Room::find()->where(['home_id' => $flat->home_id, 'object_id' => $flat->object_id, 'entrance_id' => $flat->entrance_id, 'floor_id' => $flat->floor_id, 'flat_id' => $id])->all();
+
+        return $this->render('detail_info', compact( 'flat', 'id', 'rooms'));
+    }
+
     public function actionTasks(){
-        $this->view->title = 'Этаж';
+        $this->view->title = 'Квартира';
         $this->view->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width,initial-scale=1.0,  shrink-to-fit=no']);
 
 
@@ -114,7 +127,7 @@ class FlatController extends Controller{
     }
 
     public function actionWorkSchedule(){
-        $this->view->title = 'Этаж';
+        $this->view->title = 'Квартира';
         $this->view->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width,initial-scale=1.0,  shrink-to-fit=no']);
 
 
@@ -124,7 +137,7 @@ class FlatController extends Controller{
     }
 
     public function actionNotes(){
-        $this->view->title = 'Этаж';
+        $this->view->title = 'Квартира';
         $this->view->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width,initial-scale=1.0,  shrink-to-fit=no']);
 
         $id = Yii::$app->request->get('id');
