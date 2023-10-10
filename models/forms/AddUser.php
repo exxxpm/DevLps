@@ -2,11 +2,9 @@
 namespace app\models\forms;
 
 use Yii;
-use app\models\File;
-use app\models\User;
 use yii\base\Model;
-use yii\helpers\FileHelper;
-
+use app\models\User;
+use app\models\SaveFile;
 class AddUser extends Model{
 
     public $username;
@@ -33,33 +31,6 @@ class AddUser extends Model{
         ];
     }
 
-    private function get_full_path(){
-        $uploadPath = 'uploads/' . date('Y') . '/' . date('m');
-        $fullPath = $uploadPath . '/' . $this->user_img->baseName . '.' . $this->user_img->extension;
-        return ['uploadPath' => $uploadPath, 'fullPath' => $fullPath];
-    }
-
-    public function add_file(){
-        $file = new File();
-        $path = $this->get_full_path();
-
-        $file->name = $this->user_img->baseName . '.' . $this->user_img->extension;
-        $file->path = $path['fullPath'];
-
-        if ($file->save()) {
-            $this->upload($path);
-        }
-
-        return $file;
-    }
-
-    public function upload($path){
-        if (!file_exists($path['uploadPath'])) {
-            FileHelper::createDirectory($path['uploadPath'], 0775, true);
-        }
-        $this->user_img->saveAs($path['fullPath']);
-    }
-
     public function precreation_user(){
         if (!$this->validate()) {
             return false;
@@ -69,7 +40,8 @@ class AddUser extends Model{
         $user->username = $this->username;
         $user->email = $this->email;
         if(isset($this->user_img) && !empty($this->user_img)){
-            $user->user_img = $this->add_file()->id;
+            $file_helper = new SaveFile($this->user_img);
+            $user->user_img = $file_helper->addFile()->id;
         }else{
             $user->user_img = "";
         }
@@ -81,9 +53,7 @@ class AddUser extends Model{
     public function add(){
         $preload_user = $this->precreation_user();
         if ($preload_user) {
-            $auth = Yii::$app->authManager;
-            $role = $auth->getRole($this->role);
-            $auth->assign($role, $preload_user->id);
+            $preload_user->setUserRole($this->role);
         }
     }
 

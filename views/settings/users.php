@@ -1,6 +1,6 @@
 <?php
-use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+    use yii\helpers\ArrayHelper;
+    use yii\helpers\Html;
 ?>
 <div class="main-center-wrap">
     <main>
@@ -68,8 +68,22 @@ use yii\helpers\Html;
                                 </td>
                             </tr>
                             <?
+                                $role_list = [
+                                    'admin' => 'Администратор',
+                                    'manager' => 'Менеджер',
+                                ];
                                 foreach ($users as $user) {
-                                    echo $this->render('_user', compact('user'));
+                                    ?>
+                                        <tr>
+                                            <td>
+                                                <div class="main-table__title">
+                                                    <a class="h3" href="/web/settings/edit-user/<?= $user->id ?>"><?= $user->getUsername() ?></a>
+                                                </div>
+                                            </td>
+                                            <td><?= $role_list[$user->getUserRole()->name] ?></td>
+                                            <td><a class="main-table__email" href="mailto:<?= $user->email ?>"><?= $user->email ?></a></td>
+                                        </tr>
+                                    <?
                                 }
                             ?>
                         </tbody>

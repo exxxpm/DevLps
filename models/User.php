@@ -72,26 +72,32 @@ class User extends ActiveRecord implements IdentityInterface{
         return $this->getPrimaryKey();
     }
 
-    public function getRole(){
+    public function getUserRole(){
         $auth = Yii::$app->authManager;
-
-        $role_list = [
-            'admin' => 'Администратор',
-            'manager' => 'Менеджер',
-        ];
-
-        $roles = $auth->getRolesByUser($this->getId());
-        return $role_list[reset($roles)->name];
+        $role =  reset($auth->getRolesByUser($this->getId()));
+        return $role;
     }
 
-    public function getUsername($username){
-        $words = explode(" ", $username);
+    public function setUserRole($temp_role){
+        $auth = Yii::$app->authManager;
+        if ($this->getUserRole()){
+            $auth->revoke($this->getUserRole(), $this->getId());
+            $new_role = $auth->getRole($temp_role);
+            $auth->assign($new_role, $this->getId());
+        }else{
+            $role = $auth->getRole($temp_role);
+            $auth->assign($role, $this->getId());
+        }
+    }
+
+    public function getUsername(){
+        $words = explode(" ", $this->username);
         if (count($words) >= 3) {
             $shortened_first_name = mb_substr($words[1], 0, 1, 'UTF-8') . ".";
             $shortened_middle_name = mb_substr($words[2], 0, 1, 'UTF-8') . ".";
             return $words[0] . " " . $shortened_first_name . " " . $shortened_middle_name;
         } else {
-            return $username;
+            return $this->username;
         }
     }
 

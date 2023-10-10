@@ -180,4 +180,8 @@ $(document).ready(function() {
     $('body').on('change', '#view-user', function() {
         $('#view-user').submit();
     });
+
+    $('body').on('change', '#view-surface', function() {
+        $('#view-surface').submit();
+    });
 });

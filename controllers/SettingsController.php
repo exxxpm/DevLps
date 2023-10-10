@@ -18,7 +18,7 @@ class SettingsController extends Controller{
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['modificationUsersPage'],
                     ],
                 ],
                 'denyCallback' => function () {
@@ -33,11 +33,7 @@ class SettingsController extends Controller{
         $this->view->title = 'Пользователи';
         $this->view->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width,initial-scale=1.0,  shrink-to-fit=no']);
         $this->layout = 'main';
-
-
         $query = User::find();
-
-        
 
         if (Yii::$app->request->get('user') && Yii::$app->request->get('user') != 'all') {
             $usersWithRole = Yii::$app->authManager->getUserIdsByRole(Yii::$app->request->get('user'));
@@ -57,9 +53,6 @@ class SettingsController extends Controller{
 
         return $this->render('users', compact('users', 'count'));
     }
-
-
-
 
     public function actionAddUser(){
         $this->view->title = 'Создание пользователя';
