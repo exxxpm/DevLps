@@ -3,6 +3,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
+use app\models\File;
 use yii\widgets\ActiveForm;
 
 ?>
@@ -65,7 +66,22 @@ use yii\widgets\ActiveForm;
                         <div class="sCreateObject__item">
                             <p>Автор</p>
                             <div class="avatar-wrap">
-                                <div class="avatar"><span>МИ</span><img src="/web/img/avatar.jpg" alt="" loading="lazy"/>
+                                <div class="avatar">
+                                    <?
+                                    $file_id = $user->user_img;
+                                    $file = File::findOne($file_id);
+
+                                    if(isset($file) && !empty($file)){
+                                        $img_path = '/web/'.$file->path;
+                                        ?><img src="<?= $img_path ?>" alt="" loading="lazy"/><?
+                                    }else {
+                                        ?>
+                                        <span><? $user->username[0] ?></span>
+                                        <img src="/web/img/avatar.jpg" alt="" loading="lazy"/>
+                                        <?
+                                    }
+                                    ?>
+                                </div>
                                 </div><span><?= $user->username ?></span>
                             </div>
                         </div>

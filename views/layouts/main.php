@@ -30,7 +30,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/ico', 'href' => Yii::g
                     <div class="aside-wrap__nav">
                         <ul>
                             <li>
-                                <a class="active" href="/web/site/index" data-bs-toggle="tooltip" data-bs-placement="right" title="Объекты">
+                                <a class="<? if (Yii::$app->controller->id == 'site') { echo " active "; } else { echo " "; } ?>" href="/web/site/index" data-bs-toggle="tooltip" data-bs-placement="right" title="Объекты">
                                     <svg class="icon icon-objects ">
                                         <use xlink:href="/web/img/svg/sprite.svg#objects"></use>
                                     </svg>
@@ -46,7 +46,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/ico', 'href' => Yii::g
                                 </a>
                             </li>
                             <li>
-                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Бригады">
+                                <a class="<? if (Yii::$app->controller->id == 'brigades') { echo " active "; } else { echo " "; } ?>" href="/web/brigades/index" data-bs-toggle="tooltip" data-bs-placement="right" title="Бригады">
                                     <svg class="icon icon-workers ">
                                         <use xlink:href="/web/img/svg/sprite.svg#workers"></use>
                                     </svg>

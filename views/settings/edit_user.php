@@ -1,6 +1,6 @@
 <?
 use yii\helpers\Html;
-use app\models\File;;
+use app\models\File;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 

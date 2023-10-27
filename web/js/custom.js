@@ -22,6 +22,14 @@ function checkStatusBar(count) {
     }
 }
 
+function updateWorkerNumbers() {
+    $('#workers_card').each(function(index) {
+        var $titleCol = $(this).find('.form-wrap__title-col');
+        var workerNumber = index + 1;
+        $titleCol.text('Работник ' + workerNumber);
+    });
+}
+
 $(document).ready(function() {
     count = $('.main-table input[type="checkbox"]:checked').length;
     checkStatusBar(count);
@@ -139,12 +147,6 @@ $(document).ready(function() {
         }
     });
 
-    // $(document).ready(function() {
-    //     $('#upload-form').on('change', function() {
-    //         $('#upload-form').submit();
-    //     });
-    // });
-
     $('#upload-form').on('change', function() {
         $('#upload-form').submit();
     });
@@ -183,5 +185,49 @@ $(document).ready(function() {
 
     $('body').on('change', '#view-surface', function() {
         $('#view-surface').submit();
+    });
+
+    $('body').on('click', '.form-wrap__add-new', function(event) {
+        event.preventDefault();
+
+        var $parentBlock = $(this).closest('.row[id^="workers_card"]').first();
+        var $newBlock = $parentBlock.clone();
+        $newBlock.find('input').val('');
+
+        var workerNumber = parseInt($newBlock.find('span#worker_title').text().match(/\d+/)[0]) + 1;
+        $newBlock.find('span#worker_title').text('Работник ' + workerNumber);
+
+        if ($newBlock.find('.form-wrap__delete').length === 0) {
+            var deleteLink = `
+            <a class="form-wrap__delete" href="#">
+                <svg class="icon icon-delete">
+                    <use xlink:href="/web/img/svg/sprite.svg#delete"></use>
+                </svg>
+            </a>`;
+            $newBlock.find('.form-wrap__title-col').append(deleteLink);
+        }
+
+        $('#workers_container').append($newBlock);
+        $(this).remove();
+    });
+
+    $('body').on('click', '.form-wrap__delete', function(event) {
+        event.preventDefault();
+        var $rowToDelete = $(this).closest('#workers_card');
+        var isLastRow = $rowToDelete.is(':last-child');
+
+        var addNewButton = $rowToDelete.find('.form-wrap__add-new').clone();
+        $rowToDelete.remove();
+
+        $('#workers_container .form-wrap__title-col').each(function (index) {
+            var workerNumber = index + 1;
+            var $title = $(this).find('#worker_title');
+            $title.text('Работник ' + workerNumber);
+        });
+
+        if (isLastRow) {
+            var $lastRow = $('#workers_container .row[id="workers_card"]:last');
+            $lastRow.find('.col-md').append(addNewButton);
+        }
     });
 });

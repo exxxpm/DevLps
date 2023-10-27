@@ -30,10 +30,10 @@
                         <?= Html::beginForm(['index'], 'get', ['enctype' => 'multipart/form-data', 'id' => 'view-surface', 'class' => 'sMainInfo__col col-md col-xl-3']) ?>
                         <div class="custom-select-wrap custom-select-wrap--third-type">
                             <?= Html::dropDownList('surface', Yii::$app->request->get('surface'), [
-                                'all' => 'Все поверхности',
-                                'floor' => 'Пол',
-                                'wall' => 'Стена',
-                                'ceiling' => 'Потолок',
+                                '0' => 'Все поверхности',
+                                '1' => 'Пол',
+                                '2' => 'Стена',
+                                '3' => 'Потолок',
                             ], ['class' => 'basic-select basic-select--js']) ?>
                         </div>
                         <?= Html::endForm() ?>
@@ -60,25 +60,18 @@
                                     </a>
                                 </td>
                             </tr>
-                            <?
-                                $surface_list = [
-                                    'floor' => 'Пол',
-                                    'wall' => 'Стена',
-                                    'ceiling' => 'Потолок',
-                                ];
-                                foreach ($works as $work){
-                                    ?>
-                                        <tr>
-                                            <td>
-                                                <div class="main-table__title">
-                                                    <a class="h3" href="/web/works/edit/<?= $work->id?>"><?= $work->name ?></a>
-                                                </div>
-                                            </td>
-                                            <td><?= $surface_list[$work->surface] ?></td>
-                                        </tr>
-                                    <?
-                                }
-                            ?>
+                            <? foreach ($works as $work){ ?>
+                                <tr>
+                                    <td>
+                                        <div class="main-table__title">
+                                            <a class="h3" href="/web/works/edit/<?= $work->id ?>"><?= $work->name ?></a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                       <?= $work->surface->name?>
+                                    </td>
+                                </tr>
+                            <? } ?>
                         </tbody>
                     </table>
                 </div>

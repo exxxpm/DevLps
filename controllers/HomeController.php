@@ -59,8 +59,8 @@ class HomeController extends Controller{
         $this->layout = 'edit';
 
         $id = Yii::$app->request->get('id');
-        $user = User::findOne(Yii::$app->user->id);
         $home = Home::findOne($id);
+        $user = User::findOne($home->author_id);
 
         if ($home->load(Yii::$app->request->post())) {
             if ($home->validate() && $home->edit_home($id)) {
@@ -131,6 +131,7 @@ class HomeController extends Controller{
         $id = Yii::$app->request->get('id');
         $home = Home::findOne($id);
         $notes = NotesLink::find()->where(['model_id' => $id, 'model' => 'home'])->orderBy(['id' => SORT_DESC])->all();
+        $user = User::findOne(Yii::$app->user->id);
 
         $add_form = new AddNote($id, "home");
         $add_file = new AddFile($id, "notes");
@@ -141,7 +142,7 @@ class HomeController extends Controller{
             return $this->refresh();
         }
 
-        return $this->render('notes', compact('home', 'id', 'notes', 'add_form', 'add_file'));
+        return $this->render('notes', compact('home', 'id', 'notes', 'add_form', 'add_file', 'user'));
     }
 
 }

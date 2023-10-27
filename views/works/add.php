@@ -24,7 +24,21 @@
                         </div>
                         <div class="col-12">
                             <div class="custom-select-wrap custom-select-wrap--fourth-type">
-                                <?= $form->field($add_work, 'surface', ['template' => '{input}', 'options' => ['tag' => false]])->dropDownList(['floor' => 'Пол', 'wall' => 'Стена', 'ceiling' => 'Потолок',], ['class' => 'basic-select basic-select--js',],)->label('false'); ?>
+                                <?
+                                    $options = [
+                                        ['label' => 'Пол', 'value' => '1'],
+                                        ['label' => 'Стена', 'value' => '2'],
+                                        ['label' => 'Потолок', 'value' => '3'],
+                                    ];
+
+                                    $statusOptions = [];
+                                    foreach ($options as $option) {
+                                        $label = Html::encode($option['label']);
+                                        $value = $option['value'];
+                                        $statusOptions[$value] = $label;
+                                    }
+                                ?>
+                                <?= $form->field($add_work, 'surface_id', ['template' => '{input}', 'options' => ['tag' => false]])->label(false)->dropDownList($statusOptions, ['class' => 'basic-select basic-select--js', 'encode' => false])->label(false); ?>
                             </div>
                         </div>
                         <div class="col-12">

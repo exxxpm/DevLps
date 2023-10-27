@@ -1,4 +1,7 @@
-<?php use \yii\widgets\ActiveForm; ?>
+<?php
+    use \yii\widgets\ActiveForm;
+    use app\models\File;
+?>
 
 <div class="main-center-wrap">
     <main>
@@ -67,7 +70,20 @@
                                 ?>
                                     <div class="col-auto">
                                         <div class="avatar-block avatar-block--sm" style="background: #467CF4; color: #fff">
-                                            <span>МИ</span>
+                                            <?
+                                                $file_id = $user->user_img;
+                                                $file = File::findOne($file_id);
+
+                                                if(isset($file) && !empty($file)){
+                                                    $img_path = '/web/'.$file->path;
+                                                    ?><img src="<?= $img_path ?>" alt="" loading="lazy"/><?
+                                                }else {
+                                                    ?>
+                                                    <span><? $user->username[0] ?></span>
+                                                    <img src="/web/img/avatar.jpg" alt="" loading="lazy"/>
+                                                    <?
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                     <div class="col">

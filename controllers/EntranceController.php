@@ -61,8 +61,8 @@ class EntranceController extends Controller{
         $this->layout = 'edit';
 
         $id = Yii::$app->request->get('id');
-        $user = User::findOne(Yii::$app->user->id);
         $entrance = Entrance::findOne($id);
+        $user = User::findOne($entrance->author_id);
 
         if ($entrance->load(Yii::$app->request->post())) {
             if ($entrance->validate() && $entrance->edit_entrance()) {
@@ -146,6 +146,7 @@ class EntranceController extends Controller{
 
         $add_form = new AddNote($id, "entrance");
         $add_file = new AddFile($id, "notes");
+        $user = User::findOne(Yii::$app->user->id);
 
         if ($add_form->load(Yii::$app->request->post()) && $add_file->load(Yii::$app->request->post())) {
             $add_file->file = UploadedFile::getInstances($add_file, 'file');
@@ -153,6 +154,6 @@ class EntranceController extends Controller{
             return $this->refresh();
         }
 
-        return $this->render('notes', compact('entrance', 'id', 'notes', 'add_form', 'add_file'));
+        return $this->render('notes', compact('entrance', 'id', 'notes', 'add_form', 'add_file', 'user'));
     }
 }

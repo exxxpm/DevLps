@@ -130,5 +130,4 @@ class AjaxController extends Controller{
             return false;
         }
     }
-
 }

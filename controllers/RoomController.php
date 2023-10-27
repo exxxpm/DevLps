@@ -57,8 +57,8 @@ class RoomController extends Controller{
         $this->layout = 'edit';
 
         $id = Yii::$app->request->get('id');
-        $user = User::findOne(Yii::$app->user->id);
         $room = Room::findOne($id);
+        $user = User::findOne($room->author_id);
 
         if ($room->load(Yii::$app->request->post())) {
             if ($room->validate() && $room->edit_room()) {
@@ -127,6 +127,7 @@ class RoomController extends Controller{
         $id = Yii::$app->request->get('id');
         $room = Room::findOne($id);
         $notes = NotesLink::find()->where(['model_id' => $id, 'model' => 'room'])->orderBy(['id' => SORT_DESC])->all();
+        $user = User::findOne(Yii::$app->user->id);
 
         $add_form = new AddNote($id, "room");
         $add_file = new AddFile($id, "notes");
@@ -137,7 +138,7 @@ class RoomController extends Controller{
             return $this->refresh();
         }
 
-        return $this->render('notes', compact('room', 'id', 'notes', 'add_form', 'add_file'));
+        return $this->render('notes', compact('room', 'id', 'notes', 'add_form', 'add_file', 'user'));
     }
 
     public function actionPlan(){

@@ -124,6 +124,7 @@ class SiteController extends Controller{
         $id = Yii::$app->request->get('id');
         $object = Objects::findOne($id);
         $notes = NotesLink::find()->where(['model_id' => $id, 'model' => 'object'])->orderBy(['id' => SORT_DESC])->all();
+        $user = User::findOne(Yii::$app->user->id);
 
         $add_form = new AddNote($id, "object");
         $add_file = new AddFile($id, "notes");
@@ -134,7 +135,7 @@ class SiteController extends Controller{
             return $this->refresh();
         }
 
-        return $this->render('notes', compact('object', 'id', 'notes', 'add_form', 'add_file'));
+        return $this->render('notes', compact('object', 'id', 'notes', 'add_form', 'add_file', 'user'));
     }
 
     public function actionAdd(){
@@ -163,8 +164,8 @@ class SiteController extends Controller{
         $this->layout = 'edit';
 
         $id = Yii::$app->request->get('id');
-        $user = User::findOne(Yii::$app->user->id);
         $object = Objects::findOne($id);
+        $user = User::findOne($object->author_id);
 
         if ($object->load(Yii::$app->request->post())) {
             if ($object->validate() && $object->edit_object()) {

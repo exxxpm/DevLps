@@ -58,8 +58,8 @@ class FloorController extends Controller{
         $this->layout = 'edit';
 
         $id = Yii::$app->request->get('id');
-        $user = User::findOne(Yii::$app->user->id);
         $floor = Floor::findOne($id);
+        $user = User::findOne($floor->author_id);
 
         if ($floor->load(Yii::$app->request->post())) {
             if ($floor->validate() && $floor->edit_floor()) {
@@ -127,6 +127,7 @@ class FloorController extends Controller{
         $id = Yii::$app->request->get('id');
         $floor = Floor::findOne($id);
         $notes = NotesLink::find()->where(['model_id' => $id, 'model' => 'floor'])->orderBy(['id' => SORT_DESC])->all();
+        $user = User::findOne(Yii::$app->user->id);
 
         $add_form = new AddNote($id, "floor");
         $add_file = new AddFile($id, "notes");
@@ -137,6 +138,6 @@ class FloorController extends Controller{
             return $this->refresh();
         }
 
-        return $this->render('notes', compact('floor', 'id', 'notes', 'add_form', 'add_file'));
+        return $this->render('notes', compact('floor', 'id', 'notes', 'add_form', 'add_file', 'user'));
     }
 }

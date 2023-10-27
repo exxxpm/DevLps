@@ -60,8 +60,8 @@ class FlatController extends Controller{
         $this->layout = 'edit';
 
         $id = Yii::$app->request->get('id');
-        $user = User::findOne(Yii::$app->user->id);
         $flat = Flat::findOne($id);
+        $user = User::findOne($flat->author_id);
 
         if ($flat->load(Yii::$app->request->post())) {
             if ($flat->validate() && $flat->edit_flat()) {
@@ -143,6 +143,7 @@ class FlatController extends Controller{
         $id = Yii::$app->request->get('id');
         $flat = Flat::findOne($id);
         $notes = NotesLink::find()->where(['model_id' => $id, 'model' => 'flat'])->orderBy(['id' => SORT_DESC])->all();
+        $user = User::findOne(Yii::$app->user->id);
 
         $add_form = new AddNote($id, "flat");
         $add_file = new AddFile($id, "notes");
@@ -153,7 +154,7 @@ class FlatController extends Controller{
             return $this->refresh();
         }
 
-        return $this->render('notes', compact('flat', 'id', 'notes', 'add_form', 'add_file'));
+        return $this->render('notes', compact('flat', 'id', 'notes', 'add_form', 'add_file', 'user'));
     }
 
 }
