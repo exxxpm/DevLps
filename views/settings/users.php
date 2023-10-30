@@ -68,10 +68,6 @@
                                 </td>
                             </tr>
                             <?
-                                $role_list = [
-                                    'admin' => 'Администратор',
-                                    'manager' => 'Менеджер',
-                                ];
                                 foreach ($users as $user) {
                                     ?>
                                         <tr>
@@ -80,7 +76,7 @@
                                                     <a class="h3" href="/web/settings/edit-user/<?= $user->id ?>"><?= $user->getUsername() ?></a>
                                                 </div>
                                             </td>
-                                            <td><?= $role_list[$user->getUserRole()->name] ?></td>
+                                            <td><?= $user->getRusUserRole() ?></td>
                                             <td><a class="main-table__email" href="mailto:<?= $user->email ?>"><?= $user->email ?></a></td>
                                         </tr>
                                     <?

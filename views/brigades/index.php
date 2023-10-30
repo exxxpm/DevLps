@@ -64,36 +64,34 @@ use yii\helpers\ArrayHelper;
                                     </a>
                                 </td>
                             </tr>
-                            <? foreach($brigades as $brigada){?>
+                            <?php foreach ($brigades as $brigada) { ?>
                                 <tr>
                                     <td>
                                         <div class="main-table__title"><a class="h3" href="/web/brigades/edit/<?= $brigada->id ?>"><?= $brigada->name ?></a></div>
                                     </td>
                                     <td>
-                                        <?
-                                            $lastSlink = end($brigada->slink);
-                                            foreach ($brigada->slink as $slink) {
-                                                echo $slink->surface->name;
-                                                if ($slink !== $lastSlink) {
-                                                    echo ', ';
-                                                }
-                                            }
+                                        <?php
+                                        $slinkNames = [];
+                                        foreach ($brigada->slink as $slink) {
+                                            $slinkNames[] = $slink->surface->name;
+                                        }
+                                        echo implode(', ', $slinkNames);
                                         ?>
                                     </td>
                                     <td>
-                                        <div class="main-table__goals"><img src="/web/img/svg/fist.svg" alt="" loading="lazy"/><span>81</span>/441</div>
+                                        <div class="main-table__goals"><img src="/web/img/svg/fist.svg" alt="" loading="lazy" /><span>81</span>/441</div>
                                     </td>
                                     <td>
                                         <div class="main-table__members">
-                                            <img src="/web/img/svg/members.svg" alt="" loading="lazy"/>
-                                            <?
-                                                $workers = unserialize($brigada->workers);
-                                                echo count($workers);
+                                            <img src="/web/img/svg/members.svg" alt="" loading="lazy" />
+                                            <?php
+                                            $workers = unserialize($brigada->workers);
+                                            echo count($workers);
                                             ?>
                                         </div>
                                     </td>
                                 </tr>
-                            <?} ?>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>

@@ -74,8 +74,19 @@ class User extends ActiveRecord implements IdentityInterface{
 
     public function getUserRole(){
         $auth = Yii::$app->authManager;
-        $role =  reset($auth->getRolesByUser($this->getId()));
+        $id = $this->getId();
+        $old_role = $auth->getRolesByUser($id);
+        $role =  reset($old_role);
         return $role;
+    }
+
+    public function getRusUserRole(){
+        $role_list = [
+            'admin' => 'Администратор',
+            'manager' => 'Менеджер',
+        ];
+        $role = $this->getUserRole()->name;
+        return $role_list[$role];
     }
 
     public function setUserRole($temp_role){
